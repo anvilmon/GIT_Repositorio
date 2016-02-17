@@ -1,0 +1,56 @@
+<ui:composition 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:ui="http://java.sun.com/jsf/facelets"
+					xmlns:h="http://java.sun.com/jsf/html"
+					xmlns:f="http://java.sun.com/jsf/core"
+					xmlns:p="http://primefaces.org/ui">
+		
+		<p:growl id="propMessages"/>
+		
+		<p:dataTable id="dtPropiedades" value="#{propiedadBean.listPropiedad}" var="prop" editable="true" >
+			<f:facet name="header">
+				<p:commandLink title="Add new row" rendered="#{!empty repositorioBean.lstRepositorios}">
+       				<p:graphicImage	value="../images/add.png" 	width="15" 	height="15"/>
+       				<p:ajax event="click" listener="#{propiedadBean.onRowCreate()}"	update="@this dtPropiedades" />
+       		 	</p:commandLink> 
+    		</f:facet>
+    		
+    		<p:ajax event="rowEdit" 		listener="#{propiedadBean.onRowEdit}" 		update="@this" />
+       		<p:ajax event="rowEditCancel" 	listener="#{propiedadBean.onRowCancel}" 	update="@this" />
+    		
+    		<p:column headerText="Repository URL">
+	    		<p:cellEditor>
+					<f:facet name="output"> <p:outputLabel value="#{prop.repositorio.url}"/></f:facet>
+					<f:facet name="input">
+						<p:selectOneMenu value="#{prop.repositorio}" converter="repositorioConverter">
+							<f:selectItems value="#{repositorioBean.lstRepositorios}" var="repo" itemLabel="#{repo.url}" itemValue="#{repo}"/>
+						</p:selectOneMenu>  
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Name"  >
+				<p:cellEditor>
+					<f:facet name="output">	<p:outputLabel 	value="#{prop.name}"/></f:facet>
+					<f:facet name="input">	<p:inputText 	value="#{prop.name}"/></f:facet>
+				</p:cellEditor>	
+			</p:column>
+			<p:column headerText="Description"  >
+				<p:cellEditor>
+					<f:facet name="output">	<p:outputLabel 	value="#{prop.description}" /></f:facet>
+					<f:facet name="input">	<p:inputText 	value="#{prop.description}" /></f:facet>
+				</p:cellEditor>	
+			</p:column>
+			<p:column headerText="Value" width="200px;" >
+				<p:cellEditor>
+					<f:facet name="output"> <p:outputLabel  value="#{prop.value}" /></f:facet>
+					<f:facet name="input" > <p:inputText	value="#{prop.value}" /></f:facet>
+				</p:cellEditor>	
+			</p:column>
+			<p:column headerText="Acciones">
+				<p:commandLink>
+					<p:graphicImage value="../images/cancle-512.png" width="15" height="15"/>
+					<p:ajax event="click"  listener="#{propiedadBean.onRowDelete(prop)}" update="dtPropiedades" />
+				</p:commandLink>
+				<p:rowEditor/>
+			</p:column>
+		</p:dataTable>
+</ui:composition>
