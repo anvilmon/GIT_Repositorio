@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.List;
 
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crawl.jpa.dao.AbstractDao;
+import com.crawl.jpa.dao.IAsociacionFotosDao;
 import com.crawl.jpa.data.AsociacionFotos;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.AbstractService;
-import com.crawl.spring.service.AsociacionFotosService;
 
-@Component("asociacionFotosService")
+@Component("asociacionFotosDao")
 @Service
-public class AsociacionFotosServiceImpl extends AbstractService<AsociacionFotos> {
+public class AsociacionFotosDaoImpl extends AbstractDao<AsociacionFotos> implements IAsociacionFotosDao{
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -37,16 +37,16 @@ public class AsociacionFotosServiceImpl extends AbstractService<AsociacionFotos>
 		q.executeUpdate();
 	}
 
-//	@Override
-//	@SuppressWarnings("unchecked")
-//	@Transactional
-//	public List<AsociacionFotos> findByRepository(Repositorio repositorio) {
-//		StringBuffer sb = new StringBuffer();
-//		sb.append("select c from AsociacionFotos c where c.repositorio.id=:id");
-//		Query q = getEm().createQuery(sb.toString());
-//		q.setParameter("id", repositorio.getId());
-//		return q.getResultList();
-//	}
+	@Override
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<AsociacionFotos> findByRepository(Repositorio repositorio) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select c from AsociacionFotos c where c.repositorio.id=:id");
+		Query q = getEm().createQuery(sb.toString());
+		q.setParameter("id", repositorio.getId());
+		return q.getResultList();
+	}
 
 	@Override
 	public AsociacionFotos findOne(Long id) {

@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.List;
 
@@ -8,30 +8,29 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.crawl.jpa.data.Categoria;
+import com.crawl.jpa.dao.AbstractDao;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.AbstractService;
-import com.crawl.spring.service.PropiedadService;
+import com.crawl.jpa.data.ValorPropiedad;
 
-@Component("categoriaService")
+@Component("valorPropiedadService")
 @Service
-public class CategoriaServiceImpl extends AbstractService<Categoria> {
+public class ValorPropiedadService  extends AbstractDao<ValorPropiedad>{
 
+	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional
-	@Override
-	public List<Categoria> findAll() {
+	public List<ValorPropiedad> findAll() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from Categoria c");
+		sb.append("select c from ValorPropiedad c");
 		Query q = getEm().createQuery(sb.toString());
 		return q.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public void delete(Categoria k) {
+	public void delete(ValorPropiedad k) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("delete from Categoria where id=:id");
+		sb.append("delete from ValorPropiedad where id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", k.getId());
 		q.executeUpdate();
@@ -40,21 +39,21 @@ public class CategoriaServiceImpl extends AbstractService<Categoria> {
 //	@SuppressWarnings("unchecked")
 //	@Transactional
 //	@Override
-//	public List<Categoria> findByRepository(Repositorio repositorio) {
+//	public List<ValorPropiedad> findByRepository(Repositorio repositorio) {
 //		StringBuffer sb = new StringBuffer();
-//		sb.append("select c from Categoria c where c.repositorio.id=:id");
+//		sb.append("select c from ValorPropiedad c where c.propiedad.repositorio.id=:id");
 //		Query q = getEm().createQuery(sb.toString());
 //		q.setParameter("id", repositorio.getId());
 //		return q.getResultList();
 //	}
 
 	@Override
-	public Categoria findOne(Long id) {
+	public ValorPropiedad findOne(Long id) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from Categoria c where c.id=:id");
+		sb.append("select c from ValorPropiedad c where c.id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", id);
-		return (Categoria) q.getSingleResult();
+		return (ValorPropiedad) q.getSingleResult();
 	}
 	
 }

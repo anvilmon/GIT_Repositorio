@@ -1,4 +1,4 @@
-package com.crawl.primefaces.beans;
+package com.crawl.beans.impl;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,13 +16,14 @@ import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.crawl.jpa.data.EmptyEntity;
+import com.crawl.beans.ITableBean;
+import com.crawl.command.repositorio.crud.IEliminarRepositorio;
+import com.crawl.command.repositorio.crud.IListarTodosRepositorio;
+import com.crawl.command.repositorio.crud.IPersistirRepositorio;
+import com.crawl.jpa.AbstractEntity;
 import com.crawl.jpa.data.Repositorio;
 import com.crawl.primefaces.beans.converter.RepositorioConverter;
 import com.crawl.spring.service.IBusiness;
-import com.crawl.spring.service.command.EliminarRepositorioCommand;
-import com.crawl.spring.service.command.ListarTodosRepositorioCommand;
-import com.crawl.spring.service.command.PersistirRepositorioCommand;
 import com.crawl.utils.Constants;
 
 @ManagedBean(name="repositorioBean")
@@ -36,11 +37,11 @@ public class RepositorioBean implements Serializable, ITableBean{
 	private Repositorio repositorio;
 	
 	@Autowired
-	private ListarTodosRepositorioCommand listarTodosRepositorioCommand;
+	private IListarTodosRepositorio listarTodosRepositorioCommand;
 	@Autowired
-	private PersistirRepositorioCommand persistirRepositorioCommand;
+	private IPersistirRepositorio persistirRepositorioCommand;
 	@Autowired
-	private EliminarRepositorioCommand eliminarRepositorioCommand;
+	private IEliminarRepositorio eliminarRepositorioCommand;
 	
 	@ManagedProperty("#{crawlerBusiness}")
 	private IBusiness business;
@@ -80,7 +81,7 @@ public class RepositorioBean implements Serializable, ITableBean{
 	}
 	
 	public void reload (){
-		lstRepositorios = listarTodosRepositorioCommand.execute(new EmptyEntity());
+		lstRepositorios = listarTodosRepositorioCommand.execute();
 		RepositorioConverter.DB = lstRepositorios;
 		repositorio = new Repositorio();
 	}	
@@ -98,7 +99,7 @@ public class RepositorioBean implements Serializable, ITableBean{
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
-	public void onRowDelete(EmptyEntity r){
+	public void onRowDelete(AbstractEntity r){
 		final Repositorio toDel = (Repositorio)r;
 		if (!Constants.Globals.EMPTY_STRING.equals(toDel.getUrl())){
 			eliminarRepositorioCommand.execute(((Repositorio)r));
@@ -106,7 +107,7 @@ public class RepositorioBean implements Serializable, ITableBean{
 		reload();
 	}
 	
-	public void onRowScan(EmptyEntity r) throws Exception{
+	public void onRowScan(AbstractEntity r) throws Exception{
 		final List<Repositorio> lRepositorios = new ArrayList<Repositorio>();
 		lRepositorios.add((Repositorio)r);
 		scan(lRepositorios);

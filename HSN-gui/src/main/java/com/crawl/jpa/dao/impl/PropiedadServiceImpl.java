@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.List;
 
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crawl.jpa.dao.AbstractDao;
+import com.crawl.jpa.dao.PropiedadService;
 import com.crawl.jpa.data.Propiedad;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.AbstractService;
-import com.crawl.spring.service.PropiedadService;
 
 @Component("propiedadService")
 @Service
-public class PropiedadServiceImpl extends AbstractService<Propiedad> implements PropiedadService{
+public class PropiedadServiceImpl extends AbstractDao<Propiedad> implements PropiedadService{
 
 	@Override
 	@SuppressWarnings("unchecked")

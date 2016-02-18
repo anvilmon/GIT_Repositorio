@@ -12,6 +12,7 @@
 		<class>com.crawl.jpa.data.ValorPropiedad</class>
 		<class>com.crawl.jpa.data.Producto</class>
 		<class>com.crawl.jpa.data.AsociacionFotos</class>
+		<class>com.crawl.jpa.data.CatPropiedad</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://31.170.165.185:3306/u958573884_hsn" />

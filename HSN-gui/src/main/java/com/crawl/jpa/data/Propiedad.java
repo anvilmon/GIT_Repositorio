@@ -1,7 +1,5 @@
 package com.crawl.jpa.data;
 
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,17 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.primefaces.component.selectonemenu.SelectOneMenu;
-
-import com.crawl.primefaces.beans.RepositorioBean;
+import com.crawl.jpa.AbstractEntity;
 
 @Entity
 @Table(name="PROPIEDAD")
-public class Propiedad extends EmptyEntity{
+public class Propiedad extends AbstractEntity{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,11 +25,9 @@ public class Propiedad extends EmptyEntity{
 	@JoinColumn(name="fk_repositorio")
 	private Repositorio repositorio;
 	
-	@Column(name="nombre")
-	private String name;
-	
-	@Column(name="descripcion")
-	private String description;
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="fk_cat_propiedad")
+	private CatPropiedad tipoPropiedad;
 	
 	@Column(name="valor")
 	private String value;
@@ -57,21 +48,6 @@ public class Propiedad extends EmptyEntity{
 		this.repositorio = repositorio;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public String getValue() {
 		return value;
@@ -83,18 +59,16 @@ public class Propiedad extends EmptyEntity{
 
 	@Override
 	public String toString() {
-		return "Propiedad [id=" + id + ", repositorio=" + repositorio + ", name=" + name + ", description="
-				+ description + ", value=" + value + "]";
+		return "Propiedad [id=" + id + ", repositorio=" + repositorio + ", tipoPropiedad=" + tipoPropiedad + ", value="
+				+ value + "]";
 	}
-	
-//	public void repositorioChanged(final AjaxBehaviorEvent event)  {
-//		FacesContext context = FacesContext.getCurrentInstance();
-//		RepositorioBean bean = context.getApplication().evaluateExpressionGet(context, "#{repositorioBean}", RepositorioBean.class);
-//		for (Repositorio r : bean.getLstRepositorios()){
-//			if (r.getId() == (Long.valueOf((String) ((SelectOneMenu)event.getComponent()).getSubmittedValue()))){
-//				setRepositorio(r);
-//				break;
-//			}
-//		}
-//	}
+
+	public CatPropiedad getTipoPropiedad() {
+		return tipoPropiedad;
+	}
+
+	public void setTipoPropiedad(CatPropiedad tipoPropiedad) {
+		this.tipoPropiedad = tipoPropiedad;
+	}
+
 }

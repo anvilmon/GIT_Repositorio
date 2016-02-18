@@ -1,4 +1,4 @@
-package com.crawl.primefaces.beans;
+package com.crawl.beans.impl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,15 +9,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 
-import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
-import com.crawl.jpa.data.EmptyEntity;
+import com.crawl.beans.ITableBean;
+import com.crawl.jpa.AbstractEntity;
+import com.crawl.jpa.dao.IDao;
 import com.crawl.jpa.data.Propiedad;
-import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.IService;
 
 @ManagedBean(name="propiedadBean")
 @SessionScoped
@@ -29,7 +27,7 @@ public class PropiedadBean implements Serializable, ITableBean{
 	private List<Propiedad> listPropiedad;
 	
 	@ManagedProperty("#{propiedadService}")
-	private IService<Propiedad> service;
+	private IDao<Propiedad> service;
 	@PostConstruct
 	public void init(){
 		reload();
@@ -60,7 +58,7 @@ public class PropiedadBean implements Serializable, ITableBean{
 				return;
 			}
 			service.register(propiedad);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Property "+propiedad.getName()+" Is Registered Successfully"));
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Property "+propiedad.getName()+" Is Registered Successfully"));
 			System.out.println(propiedad.toString());
 			propiedad = new Propiedad();
 			reload();
@@ -71,28 +69,28 @@ public class PropiedadBean implements Serializable, ITableBean{
 	}
 	
 
-	public IService<Propiedad> getService() {
+	public IDao<Propiedad> getService() {
 		return service;
 	}
 
-	public void setService(IService<Propiedad> service) {
+	public void setService(IDao<Propiedad> service) {
 		this.service = service;
 	}
 
 	public void onRowEdit(RowEditEvent event) {
 		propiedad = (Propiedad) event.getObject();
 		register();
-        FacesMessage msg = new FacesMessage("Property Edited", ((Propiedad) event.getObject()).getName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+//        FacesMessage msg = new FacesMessage("Property Edited", ((Propiedad) event.getObject()).getName());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
 	public void onRowCancel(RowEditEvent event) {
 		reload();
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Propiedad) event.getObject()).getName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+//        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Propiedad) event.getObject()).getName());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
-	public void onRowDelete(EmptyEntity p){
+	public void onRowDelete(AbstractEntity p){
 		service.delete((Propiedad)p);
 		reload();
 	}

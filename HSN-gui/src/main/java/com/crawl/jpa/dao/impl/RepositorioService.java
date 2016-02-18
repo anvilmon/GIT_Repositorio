@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crawl.jpa.dao.AbstractDao;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.AbstractService;
 
 
 @Service
-public class RepositorioService extends AbstractService<Repositorio> {
+public class RepositorioService extends AbstractDao<Repositorio> {
 	
 	@SuppressWarnings("unchecked")
 	@Transactional

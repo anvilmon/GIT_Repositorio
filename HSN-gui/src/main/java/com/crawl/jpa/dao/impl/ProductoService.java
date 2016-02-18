@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.List;
 
@@ -8,52 +8,51 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crawl.jpa.dao.AbstractDao;
+import com.crawl.jpa.data.Producto;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.jpa.data.ValorPropiedad;
-import com.crawl.spring.service.AbstractService;
 
-@Component("valorPropiedadService")
+@Component("productoService")
 @Service
-public class ValorPropiedadService  extends AbstractService<ValorPropiedad>{
+public class ProductoService extends AbstractDao<Producto>{
 
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<ValorPropiedad> findAll() {
+	public List<Producto> findAll() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from ValorPropiedad c");
+		sb.append("select c from Producto c");
 		Query q = getEm().createQuery(sb.toString());
 		return q.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public void delete(ValorPropiedad k) {
+	public void delete(Producto k) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("delete from ValorPropiedad where id=:id");
+		sb.append("delete from Producto where id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", k.getId());
 		q.executeUpdate();
 	}
-
+	
 //	@SuppressWarnings("unchecked")
 //	@Transactional
 //	@Override
-//	public List<ValorPropiedad> findByRepository(Repositorio repositorio) {
+//	public List<Producto> findByRepository(Repositorio repositorio) {
 //		StringBuffer sb = new StringBuffer();
-//		sb.append("select c from ValorPropiedad c where c.propiedad.repositorio.id=:id");
+//		sb.append("select c from Producto c where c.categoria.repositorio.id=:id");
 //		Query q = getEm().createQuery(sb.toString());
 //		q.setParameter("id", repositorio.getId());
 //		return q.getResultList();
 //	}
 
 	@Override
-	public ValorPropiedad findOne(Long id) {
+	public Producto findOne(Long id) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from ValorPropiedad c where c.id=:id");
+		sb.append("select c from Producto c where c.id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", id);
-		return (ValorPropiedad) q.getSingleResult();
+		return (Producto) q.getSingleResult();
 	}
-	
 }

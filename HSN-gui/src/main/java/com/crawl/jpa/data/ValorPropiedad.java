@@ -13,9 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.crawl.jpa.AbstractEntity;
+
 @Entity
 @Table(name="VALOR_PROPIEDAD")
-public class ValorPropiedad extends EmptyEntity {
+public class ValorPropiedad extends AbstractEntity {
 
 	/**
 	 * 

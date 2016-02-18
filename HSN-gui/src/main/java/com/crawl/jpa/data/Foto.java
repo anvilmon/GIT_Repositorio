@@ -14,13 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.crawl.jpa.AbstractEntity;
+
 @Entity
 @Table(name="FOTO")
-public class Foto  extends EmptyEntity {
+public class Foto  extends AbstractEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

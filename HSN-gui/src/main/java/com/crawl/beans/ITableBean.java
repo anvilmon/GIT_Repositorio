@@ -1,14 +1,14 @@
-package com.crawl.primefaces.beans;
+package com.crawl.beans;
 
 import org.primefaces.event.RowEditEvent;
 
-import com.crawl.jpa.data.EmptyEntity;
+import com.crawl.jpa.AbstractEntity;
 
 public interface ITableBean {
 
 	public void onRowCreate();
 	public void onRowEdit(RowEditEvent event);
 	public void onRowCancel(RowEditEvent event);
-	public void onRowDelete(EmptyEntity r);
+	public void onRowDelete(AbstractEntity a);
 	
 }

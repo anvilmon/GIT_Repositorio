@@ -13,13 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.crawl.jpa.AbstractEntity;
+
 @Entity
 @Table(name="PRODUCTO")
-public class Producto extends EmptyEntity {
+public class Producto extends AbstractEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

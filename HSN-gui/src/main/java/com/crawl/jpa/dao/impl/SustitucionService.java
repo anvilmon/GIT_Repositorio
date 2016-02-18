@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.List;
 
@@ -8,51 +8,52 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.crawl.jpa.data.Producto;
+import com.crawl.jpa.dao.AbstractDao;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.AbstractService;
+import com.crawl.jpa.data.Sustitucion;
 
-@Component("productoService")
+@Component("sustitucionService")
 @Service
-public class ProductoService extends AbstractService<Producto>{
+public class SustitucionService extends AbstractDao<Sustitucion>{
 
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Producto> findAll() {
+	public List<Sustitucion> findAll() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from Producto c");
+		sb.append("select c from Sustitucion c");
 		Query q = getEm().createQuery(sb.toString());
 		return q.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public void delete(Producto k) {
+	public void delete(Sustitucion k) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("delete from Producto where id=:id");
+		sb.append("delete from Sustitucion where id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", k.getId());
 		q.executeUpdate();
 	}
-	
+
 //	@SuppressWarnings("unchecked")
 //	@Transactional
 //	@Override
-//	public List<Producto> findByRepository(Repositorio repositorio) {
+//	public List<Sustitucion> findByRepository(Repositorio repositorio) {
 //		StringBuffer sb = new StringBuffer();
-//		sb.append("select c from Producto c where c.categoria.repositorio.id=:id");
+//		sb.append("select c from Sustitucion c where c.repositorio.id=:id");
 //		Query q = getEm().createQuery(sb.toString());
 //		q.setParameter("id", repositorio.getId());
 //		return q.getResultList();
 //	}
 
 	@Override
-	public Producto findOne(Long id) {
+	public Sustitucion findOne(Long id) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from Producto c where c.id=:id");
+		sb.append("select c from Sustitucion c where c.id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", id);
-		return (Producto) q.getSingleResult();
+		return (Sustitucion) q.getSingleResult();
 	}
+	
 }

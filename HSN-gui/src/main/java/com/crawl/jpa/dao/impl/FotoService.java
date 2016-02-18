@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.crawl.jpa.dao.AbstractDao;
 import com.crawl.jpa.data.Foto;
 import com.crawl.jpa.data.Repositorio;
-import com.crawl.spring.service.AbstractService;
 
 @Component("fotoService")
 @Service
-public class FotoService extends AbstractService<Foto>{
+public class FotoService extends AbstractDao<Foto>{
 
 	@Override
 	@SuppressWarnings("unchecked")

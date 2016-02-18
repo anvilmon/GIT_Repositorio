@@ -9,13 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.crawl.jpa.AbstractEntity;
+
 @Entity
 @Table(name="ASOCIACION_FOTOS")
-public class AsociacionFotos extends EmptyEntity{
+public class AsociacionFotos extends AbstractEntity{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id

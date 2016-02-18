@@ -1,8 +1,8 @@
-package com.crawl.jpa.data;
+package com.crawl.jpa;
 
 import java.io.Serializable;
 
-public class EmptyEntity implements Serializable{
+public class AbstractEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

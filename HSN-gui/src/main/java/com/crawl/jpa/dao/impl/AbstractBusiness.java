@@ -1,4 +1,4 @@
-package com.crawl.spring.service.impl;
+package com.crawl.jpa.dao.impl;
 
 import java.util.Date;
 
@@ -6,13 +6,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crawl.jpa.dao.IDao;
 import com.crawl.jpa.data.Foto;
-import com.crawl.spring.service.IService;
 
 public class AbstractBusiness {
 
 	@Autowired
-	protected IService<Foto> fotoService;
+	protected IDao<Foto> fotoService;
 	
 	@Transactional
 	protected Foto generateNewSnapshot (){

@@ -8,9 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.crawl.jpa.AbstractEntity;
+
 @Entity
 @Table(name="SUSTITUCION")
-public class Sustitucion extends EmptyEntity {
+public class Sustitucion extends AbstractEntity {
 
 	/**
 	 * 

@@ -11,13 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.crawl.jpa.AbstractEntity;
+
 @Entity
 @Table(name="REPOSITORIO")
-public class Repositorio extends EmptyEntity {
+public class Repositorio extends AbstractEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -35,6 +34,9 @@ public class Repositorio extends EmptyEntity {
 	
 	@Column(name="root")
 	private String root;
+	
+	@Column(name="name")
+	private String name;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Categoria> categorias = new ArrayList<Categoria>();
@@ -86,8 +88,9 @@ public class Repositorio extends EmptyEntity {
 	@Override
 	public String toString() {
 		return "Repositorio [id=" + id + ", url=" + url + ", image=" + image + ", active=" + active + ", root=" + root
-				+ ", categorias=" + categorias + ", asociacionFotos=" + asociacionFotos + ", propiedades=" + propiedades
-				+ ", sustituciones=" + sustituciones + ", productos=" + productos + "]";
+				+ ", name=" + name + ", categorias=" + categorias + ", asociacionFotos=" + asociacionFotos
+				+ ", propiedades=" + propiedades + ", sustituciones=" + sustituciones + ", productos=" + productos
+				+ "]";
 	}
 
 	public List<Categoria> getCategorias() {
@@ -136,6 +139,14 @@ public class Repositorio extends EmptyEntity {
 
 	public void setAsociacionFotos(List<AsociacionFotos> asociacionFotos) {
 		this.asociacionFotos = asociacionFotos;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	

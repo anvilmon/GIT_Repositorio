@@ -1,8 +1,8 @@
-package com.crawl.spring.service;
+package com.crawl.jpa.dao;
 
 import java.util.List;
 
-public interface IService<K> {
+public interface IDao<K> {
 	
 	public K register(K k);
 	
