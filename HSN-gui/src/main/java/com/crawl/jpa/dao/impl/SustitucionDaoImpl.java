@@ -9,52 +9,51 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.crawl.jpa.dao.AbstractDao;
-import com.crawl.jpa.dao.IAsociacionFotosDao;
-import com.crawl.jpa.data.AsociacionFotos;
+import com.crawl.jpa.dao.ISustitucionDao;
+import com.crawl.jpa.data.Sustitucion;
 
-@Component("asociacionFotosDao")
+@Component("sustitucionDao")
 @Service
-public class AsociacionFotosDaoImpl extends AbstractDao<AsociacionFotos> implements IAsociacionFotosDao{
+public class SustitucionDaoImpl extends AbstractDao<Sustitucion> implements ISustitucionDao{
 
 	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<AsociacionFotos> findAll() {
+	public List<Sustitucion> findAll() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select c from AsociacionFotos c");
+		sb.append("select c from Sustitucion c");
 		Query q = getEm().createQuery(sb.toString());
 		return q.getResultList();
 	}
 
 	@Override
 	@Transactional
-	public void delete(AsociacionFotos k) {
+	public void delete(Sustitucion k) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("delete from AsociacionFotos where id=:id");
+		sb.append("delete from Sustitucion where id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", k.getId());
 		q.executeUpdate();
 	}
 
-
-	@Override
-	public AsociacionFotos findOne(Long id) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("select c from AsociacionFotos c where c.id=:id");
-		Query q = getEm().createQuery(sb.toString());
-		q.setParameter("id", id);
-		return (AsociacionFotos) q.getSingleResult();
-	}
-
 	@SuppressWarnings("unchecked")
+	@Transactional
 	@Override
-	public List<AsociacionFotos> findByRepository(Long id) {
+	public List<Sustitucion> findByRepository(Long id) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("select af from AsociacionFotos af where af.repositorio.id:=id");
+		sb.append("select c from Sustitucion c where c.repositorio.id=:id");
 		Query q = getEm().createQuery(sb.toString());
 		q.setParameter("id", id);
 		return q.getResultList();
 	}
 
-
+	@Override
+	public Sustitucion findOne(Long id) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select c from Sustitucion c where c.id=:id");
+		Query q = getEm().createQuery(sb.toString());
+		q.setParameter("id", id);
+		return (Sustitucion) q.getSingleResult();
+	}
+	
 }

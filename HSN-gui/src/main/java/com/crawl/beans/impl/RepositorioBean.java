@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.crawl.beans.ITableBean;
-import com.crawl.command.repositorio.crud.IEliminarRepositorio;
-import com.crawl.command.repositorio.crud.IListarTodosRepositorio;
-import com.crawl.command.repositorio.crud.IPersistirRepositorio;
+import com.crawl.command.crud.IEliminar;
+import com.crawl.command.crud.IListarTodos;
+import com.crawl.command.crud.IPersistir;
 import com.crawl.jpa.AbstractEntity;
 import com.crawl.jpa.data.Repositorio;
 import com.crawl.primefaces.beans.converter.RepositorioConverter;
@@ -37,11 +37,11 @@ public class RepositorioBean implements Serializable, ITableBean{
 	private Repositorio repositorio;
 	
 	@Autowired
-	private IListarTodosRepositorio listarTodosRepositorioCommand;
+	private IListarTodos<List<Repositorio>> listarTodosRepositorioCommand;
 	@Autowired
-	private IPersistirRepositorio persistirRepositorioCommand;
+	private IPersistir<Repositorio, Repositorio> persistirRepositorioCommand;
 	@Autowired
-	private IEliminarRepositorio eliminarRepositorioCommand;
+	private IEliminar<Repositorio> eliminarRepositorioCommand;
 	
 	@ManagedProperty("#{crawlerBusiness}")
 	private IBusiness business;
