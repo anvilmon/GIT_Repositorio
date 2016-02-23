@@ -1,0 +1,38 @@
+package com.crawl.command.crud.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.crawl.command.crud.ICatPropiedadCRUDManager;
+import com.crawl.jpa.dao.ICatPropiedadDao;
+import com.crawl.jpa.data.CatPropiedad;
+
+@Component("catPropiedadCRUD")
+public class CatPropiedadCRUDManagerImpl implements ICatPropiedadCRUDManager {
+	
+	@Autowired
+	private ICatPropiedadDao dao;
+
+	@Override
+	public void eliminar(CatPropiedad af) {
+		dao.delete(af);
+	}
+
+	@Override
+	public CatPropiedad guardar(CatPropiedad af) {
+		return dao.save(af);
+	}
+
+	@Override
+	public List<CatPropiedad> listarTodos() {
+		return dao.findAll();
+	}
+
+	@Override
+	public CatPropiedad buscarPorId(Long id) {
+		return dao.findOne(id);
+	}
+
+}

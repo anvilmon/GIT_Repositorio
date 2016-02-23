@@ -1,11 +1,8 @@
 package com.crawl.jpa.dao;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.crawl.jpa.dao.custom.IPropiedadDaoCustom;
 import com.crawl.jpa.data.Propiedad;
 
-public interface IPropiedadDao extends IDao<Propiedad>{
-	
-	public List<Propiedad> findByRepository(Long id);
-
-}
+public interface IPropiedadDao extends JpaRepository<Propiedad, Long>, IPropiedadDaoCustom{}

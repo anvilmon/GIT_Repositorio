@@ -6,15 +6,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crawl.beans.ITableBean;
+import com.crawl.command.crud.IPropiedadCRUDManager;
 import com.crawl.jpa.AbstractEntity;
-import com.crawl.jpa.dao.IDao;
 import com.crawl.jpa.data.Propiedad;
 
 @ManagedBean(name="propiedadBean")
@@ -26,8 +26,9 @@ public class PropiedadBean implements Serializable, ITableBean{
 	private Propiedad propiedad;
 	private List<Propiedad> listPropiedad;
 	
-	@ManagedProperty("#{propiedadService}")
-	private IDao<Propiedad> service;
+	@Autowired
+	private IPropiedadCRUDManager propiedadCRUD;
+	
 	@PostConstruct
 	public void init(){
 		reload();
@@ -47,7 +48,7 @@ public class PropiedadBean implements Serializable, ITableBean{
 	}
 	
 	public void reload(){
-		listPropiedad = service.findAll();
+		listPropiedad = propiedadCRUD.listarTodos();
 		propiedad = new Propiedad();
 	}
 	
@@ -57,7 +58,7 @@ public class PropiedadBean implements Serializable, ITableBean{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Must select a repository..."));
 				return;
 			}
-			service.register(propiedad);
+			propiedadCRUD.guardar(propiedad);
 //			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Property "+propiedad.getName()+" Is Registered Successfully"));
 			System.out.println(propiedad.toString());
 			propiedad = new Propiedad();
@@ -68,14 +69,6 @@ public class PropiedadBean implements Serializable, ITableBean{
 		}
 	}
 	
-
-	public IDao<Propiedad> getService() {
-		return service;
-	}
-
-	public void setService(IDao<Propiedad> service) {
-		this.service = service;
-	}
 
 	public void onRowEdit(RowEditEvent event) {
 		propiedad = (Propiedad) event.getObject();
@@ -91,7 +84,7 @@ public class PropiedadBean implements Serializable, ITableBean{
     }
 	
 	public void onRowDelete(AbstractEntity p){
-		service.delete((Propiedad)p);
+		propiedadCRUD.eliminar((Propiedad)p);
 		reload();
 	}
 

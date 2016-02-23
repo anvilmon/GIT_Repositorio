@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.crawl.beans.ITableBean;
-import com.crawl.command.crud.IEliminar;
-import com.crawl.command.crud.IListarTodos;
-import com.crawl.command.crud.IPersistir;
+import com.crawl.command.crud.IRepositorioCRUDManager;
 import com.crawl.jpa.AbstractEntity;
 import com.crawl.jpa.data.Repositorio;
 import com.crawl.primefaces.beans.converter.RepositorioConverter;
@@ -37,11 +35,7 @@ public class RepositorioBean implements Serializable, ITableBean{
 	private Repositorio repositorio;
 	
 	@Autowired
-	private IListarTodos<List<Repositorio>> listarTodosRepositorioCommand;
-	@Autowired
-	private IPersistir<Repositorio, Repositorio> persistirRepositorioCommand;
-	@Autowired
-	private IEliminar<Repositorio> eliminarRepositorioCommand;
+	private IRepositorioCRUDManager repositorioCRUD;
 	
 	@ManagedProperty("#{crawlerBusiness}")
 	private IBusiness business;
@@ -69,7 +63,7 @@ public class RepositorioBean implements Serializable, ITableBean{
 	
 	public void register() {
 		try{
-			persistirRepositorioCommand.execute(repositorio);
+			repositorioCRUD.guardar(repositorio);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Repository "+repositorio.getUrl()+" Is Registered Successfully"));
 			System.out.println(repositorio.toString());
 			repositorio = new Repositorio();
@@ -81,7 +75,7 @@ public class RepositorioBean implements Serializable, ITableBean{
 	}
 	
 	public void reload (){
-		lstRepositorios = listarTodosRepositorioCommand.execute();
+		lstRepositorios = repositorioCRUD.listarTodos();
 		RepositorioConverter.DB = lstRepositorios;
 		repositorio = new Repositorio();
 	}	
@@ -102,7 +96,7 @@ public class RepositorioBean implements Serializable, ITableBean{
 	public void onRowDelete(AbstractEntity r){
 		final Repositorio toDel = (Repositorio)r;
 		if (!Constants.Globals.EMPTY_STRING.equals(toDel.getUrl())){
-			eliminarRepositorioCommand.execute(((Repositorio)r));
+			repositorioCRUD.eliminar(((Repositorio)r));
 		}
 		reload();
 	}

@@ -6,19 +6,15 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.crawl.command.crud.IListarTodos;
-import com.crawl.command.crud.IPersistir;
+import com.crawl.command.crud.IFotoCRUDManager;
+import com.crawl.command.crud.IRepositorioCRUDManager;
 import com.crawl.jpa.dao.IPropiedadDao;
 import com.crawl.jpa.data.AsociacionFotos;
-import com.crawl.jpa.data.Categoria;
 import com.crawl.jpa.data.Foto;
-import com.crawl.jpa.data.Propiedad;
 import com.crawl.jpa.data.Repositorio;
 import com.crawl.spring.service.IBusiness;
 
@@ -30,15 +26,15 @@ public class CrawlerBusiness implements IBusiness{
 	private IPropiedadDao propiedadService;
 	
 	@Autowired
-	private IListarTodos<List<Repositorio>> listarTodosRepositorioCommand;
+	private IRepositorioCRUDManager repositorioCRUD;
 	
 	@Autowired
-	private IPersistir<Foto, Foto> persistirFotoCommand ;
+	private IFotoCRUDManager fotoCRUD;
 	
 	@Override
 	@Transactional
 	public void scanRepositorios() throws Exception {
-		final List<Repositorio> rList = listarTodosRepositorioCommand.execute();
+		final List<Repositorio> rList = repositorioCRUD.listarTodos();
 		if (rList == null || rList.isEmpty()){
 			return;
 		}
@@ -46,7 +42,7 @@ public class CrawlerBusiness implements IBusiness{
 		Foto foto = new Foto();
 		foto.setDtFoto(new Date());
 		foto.setTerminado(false);
-		foto = persistirFotoCommand.execute(foto);
+		foto = fotoCRUD.guardar(foto);
 		final List<AsociacionFotos> afList = new ArrayList<AsociacionFotos>();
 		AsociacionFotos af = null;
 //		for (Repositorio r : rList){
@@ -60,7 +56,7 @@ public class CrawlerBusiness implements IBusiness{
 //		}
 		foto.setAsociacionFotos(afList);;
 		foto.setTerminado(true);
-		foto = persistirFotoCommand.execute(foto);
+		foto = fotoCRUD.guardar(foto);
 		
 		/* Creamos la foto relativa al repositorio */
 		
