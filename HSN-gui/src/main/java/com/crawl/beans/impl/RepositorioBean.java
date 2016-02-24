@@ -1,6 +1,5 @@
 package com.crawl.beans.impl;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -21,7 +19,6 @@ import com.crawl.command.crud.IRepositorioCRUDManager;
 import com.crawl.jpa.AbstractEntity;
 import com.crawl.jpa.data.Repositorio;
 import com.crawl.primefaces.beans.converter.RepositorioConverter;
-import com.crawl.spring.service.IBusiness;
 import com.crawl.utils.Constants;
 
 @ManagedBean(name="repositorioBean")
@@ -36,9 +33,6 @@ public class RepositorioBean implements Serializable, ITableBean{
 	
 	@Autowired
 	private IRepositorioCRUDManager repositorioCRUD;
-	
-	@ManagedProperty("#{crawlerBusiness}")
-	private IBusiness business;
 	
 	@PostConstruct
 	public void init(){
@@ -108,12 +102,12 @@ public class RepositorioBean implements Serializable, ITableBean{
 	}
 	
 	public void scan(List<Repositorio> list) throws Exception{
-		try {
-			business.scanRepositorios();
-		} catch (IOException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("There has been an error crawling data."));
-			e.printStackTrace();
-		}
+//		try {
+//			business.scanRepositorios();
+//		} catch (IOException e) {
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("There has been an error crawling data."));
+//			e.printStackTrace();
+//		}
 	}
 
 //	public IBusiness getBusiness() {

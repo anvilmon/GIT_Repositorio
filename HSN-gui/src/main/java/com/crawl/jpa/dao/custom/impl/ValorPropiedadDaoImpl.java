@@ -3,8 +3,10 @@ package com.crawl.jpa.dao.custom.impl;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.crawl.jpa.dao.custom.IValorPropiedadDaoCustom;
+import org.springframework.stereotype.Service;
 
+import com.crawl.jpa.dao.custom.IValorPropiedadDaoCustom;
+@Service
 public class ValorPropiedadDaoImpl implements IValorPropiedadDaoCustom{
 
 	@PersistenceContext

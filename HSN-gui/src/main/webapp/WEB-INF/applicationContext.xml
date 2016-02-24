@@ -16,12 +16,10 @@
 	    					http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 	<!-- Enable Spring Annotation Configuration -->
 	<context:annotation-config />
-	<!-- Scan for all of Spring components such as Spring Service -->
-<!-- 	<repositories base-package="com.crawl" /> -->
-<!--     <jpa:repositories base-package="com.crawl"/> -->
 	<context:component-scan base-package="com.crawl"/>
-<!-- 	<bean id="RepositorioDao" class="com.crawl.spring.service.repository.impl.RepositorioDaoImpl" /> -->
-	
+
+
+
 	<!-- Necessary to get the entity manager injected into the factory bean -->
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />	
 	

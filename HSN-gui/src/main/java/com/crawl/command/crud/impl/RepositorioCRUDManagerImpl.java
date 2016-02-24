@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.IRepositorioCRUDManager;
 import com.crawl.jpa.dao.IRepositorioDao;
 import com.crawl.jpa.data.Repositorio;
 
 @Component("repositorioCRUD")
+@Service
 public class RepositorioCRUDManagerImpl implements IRepositorioCRUDManager {
 	
 	@Autowired

@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.IPropiedadCRUDManager;
 import com.crawl.jpa.dao.IPropiedadDao;
 import com.crawl.jpa.data.Propiedad;
 
 @Component("propiedadCRUD")
+@Service
 public class PropiedadCRUDManagerImpl implements IPropiedadCRUDManager {
 	
 	@Autowired

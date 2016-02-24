@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.IFotoCRUDManager;
 import com.crawl.jpa.dao.IFotoDao;
 import com.crawl.jpa.data.Foto;
 
 @Component("fotoCRUD")
+@Service
 public class FotoCRUDManagerImpl implements IFotoCRUDManager {
 	
 	@Autowired

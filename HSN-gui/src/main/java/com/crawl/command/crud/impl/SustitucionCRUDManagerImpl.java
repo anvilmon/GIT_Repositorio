@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.ISustitucionCRUDManager;
 import com.crawl.jpa.dao.ISustitucionDao;
 import com.crawl.jpa.data.Sustitucion;
 
 @Component("sustitucionCRUD")
+@Service
 public class SustitucionCRUDManagerImpl implements ISustitucionCRUDManager {
 	
 	@Autowired
