@@ -19,7 +19,7 @@ public class Propiedad extends AbstractEntity{
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_repositorio")

@@ -15,7 +15,7 @@ public class CatPropiedad extends AbstractEntity{
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 
 	@Column(name="name")
 	private String name;

@@ -26,7 +26,7 @@ public class ValorPropiedad extends AbstractEntity {
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 	
 	@Column(name="valor")
 	private String value;

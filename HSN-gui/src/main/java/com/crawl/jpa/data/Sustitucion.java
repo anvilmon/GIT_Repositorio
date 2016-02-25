@@ -21,7 +21,7 @@ public class Sustitucion extends AbstractEntity {
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 	
 	@Column(name="from_val")
 	private String from;

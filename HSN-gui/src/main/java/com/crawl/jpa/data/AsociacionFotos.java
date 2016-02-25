@@ -20,7 +20,7 @@ public class AsociacionFotos extends AbstractEntity{
 	@Id
 	@Column(name="id")
 	@GeneratedValue
-	private long id;
+	private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="fk_repositorio", nullable = true)

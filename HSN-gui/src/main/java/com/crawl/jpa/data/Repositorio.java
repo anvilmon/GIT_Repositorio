@@ -21,7 +21,7 @@ public class Repositorio extends AbstractEntity {
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 
 	@Column(name="url")
 	private String url;

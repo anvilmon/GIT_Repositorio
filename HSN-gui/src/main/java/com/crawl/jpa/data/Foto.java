@@ -24,7 +24,7 @@ public class Foto  extends AbstractEntity {
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 	
 	@Column(name="dt_foto")
 	@Temporal(TemporalType.DATE)

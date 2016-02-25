@@ -22,7 +22,7 @@ public class Categoria  extends AbstractEntity{
 
 	@Id
 	@Column(name="id")
-	private long id;
+	private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="fk_repositorio")
