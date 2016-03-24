@@ -1,0 +1,35 @@
+<ui:composition 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:ui="http://java.sun.com/jsf/facelets"
+					xmlns:h="http://java.sun.com/jsf/html"
+					xmlns:f="http://java.sun.com/jsf/core"
+					xmlns:p="http://primefaces.org/ui" 
+					template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="content">
+		<p:dataTable id="dtRepositorios" value="#{repositorioBean.lstRepositorios}" var="rep">
+	   		<p:column headerText="Nombre" width="150px;">
+	   			<p:outputLabel value="#{rep.name}"/>
+	   		</p:column>
+	   		<p:column headerText="Home" width="100px;">
+	   			<p:commandLink value="Visitar..." onclick="window.open('#{rep.root}','_blank')" title="#{rep.root}"/>
+			</p:column>
+			<p:column headerText="Scan URL" width="100px;">
+				<p:commandLink value="Visitar..." onclick="window.open('#{rep.url}','_blank')" title="#{rep.url}"/>
+			</p:column>
+			<p:column headerText="Image" width="160" >
+				<p:graphicImage value="#{rep.image}" width="160" height="60"/>
+			</p:column>
+			<p:column headerText="Estado" width="50px;">
+				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{rep.active}"/>
+				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!rep.active}"/>
+			</p:column>
+			<p:column headerText="Acciones">
+				<p:commandLink rendered="#{rep.active == false}" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios">
+					<p:graphicImage	value="../images/activar.png" 		title="Activar" width="25" height="25" />
+				</p:commandLink>
+				<p:commandLink rendered="#{rep.active == true }" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios">
+					<p:graphicImage	value="../images/desactivar.png" 	title="Desactivar" width="25" height="25" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>

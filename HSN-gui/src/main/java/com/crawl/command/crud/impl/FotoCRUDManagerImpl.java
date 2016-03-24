@@ -18,23 +18,12 @@ public class FotoCRUDManagerImpl implements IFotoCRUDManager {
 	private IFotoDao dao;
 
 	@Override
-	public void eliminar(Foto af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(Foto af) { dao.delete(af); }
 	@Override
-	public Foto guardar(Foto af) {
-		return dao.save(af);
-	}
-
+	public Foto guardar(Foto af) { return dao.save(af); }
 	@Override
-	public List<Foto> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<Foto> listarTodos() { return dao.findAll(); }
 	@Override
-	public Foto buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public Foto buscarPorId(Long id) { return dao.findOne(id); }
 
 }

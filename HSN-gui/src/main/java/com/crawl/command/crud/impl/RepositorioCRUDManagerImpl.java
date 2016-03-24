@@ -18,23 +18,12 @@ public class RepositorioCRUDManagerImpl implements IRepositorioCRUDManager {
 	private IRepositorioDao dao;
 
 	@Override
-	public void eliminar(Repositorio af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(Repositorio af) { dao.delete(af); }
 	@Override
-	public Repositorio guardar(Repositorio af) {
-		return dao.save(af);
-	}
-
+	public Repositorio guardar(Repositorio af) { return dao.save(af); }
 	@Override
-	public List<Repositorio> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<Repositorio> listarTodos() { return dao.findAll(); }
 	@Override
-	public Repositorio buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public Repositorio buscarPorId(Long id) { return dao.findOne(id); }
 
 }

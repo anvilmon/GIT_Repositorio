@@ -18,23 +18,12 @@ public class ProductoCRUDManagerImpl implements IProductoCRUDManager {
 	private IProductoDao dao;
 
 	@Override
-	public void eliminar(Producto af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(Producto af) { dao.delete(af); }
 	@Override
-	public Producto guardar(Producto af) {
-		return dao.save(af);
-	}
-
+	public Producto guardar(Producto af) { return dao.save(af); }
 	@Override
-	public List<Producto> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<Producto> listarTodos() { return dao.findAll(); }
 	@Override
-	public Producto buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public Producto buscarPorId(Long id) { return dao.findOne(id); }
 
 }

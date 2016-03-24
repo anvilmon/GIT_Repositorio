@@ -18,23 +18,12 @@ public class PropiedadCRUDManagerImpl implements IPropiedadCRUDManager {
 	private IPropiedadDao dao;
 
 	@Override
-	public void eliminar(Propiedad af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(Propiedad af) { dao.delete(af); }
 	@Override
-	public Propiedad guardar(Propiedad af) {
-		return dao.save(af);
-	}
-
+	public Propiedad guardar(Propiedad af) { return dao.save(af); }
 	@Override
-	public List<Propiedad> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<Propiedad> listarTodos() { return dao.findAll(); }
 	@Override
-	public Propiedad buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public Propiedad buscarPorId(Long id) { return dao.findOne(id); }
 
 }

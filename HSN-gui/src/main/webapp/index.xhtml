@@ -1,24 +1,9 @@
-<html 	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition 	xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:p="http://primefaces.org/ui">
-	<h:head>
-		<script name="jquery/jquery.js" library="primefaces"/>
-		<title>Repository Management</title>
-		<h:outputStylesheet library="css" name="#{request.contextPath}/css/style.css" />
-	</h:head>
-	<h:form>
-		<p:tabView orientation="left" dynamic="true" cache="true">
-	        <p:tab title="Repositories Management">
-	            <ui:include src="tabs/repositoriesManagement.xhtml" />
-	        </p:tab>
-	        <p:tab title="Properties Management">
-	            <h:panelGrid columns="2" cellpadding="10">
-	                <ui:include src="tabs/propertiesManagement.xhtml" />
-	            </h:panelGrid>
-	        </p:tab>
-   		 </p:tabView>
-		
-	</h:form>
-	</html>
+		xmlns:p="http://primefaces.org/ui"
+		template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="content">
+	</ui:define>
+	</ui:composition>

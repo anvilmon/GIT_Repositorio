@@ -18,23 +18,12 @@ public class ValorPropiedadCRUDManagerImpl implements IValorPropiedadCRUDManager
 	private IValorPropiedadDao dao;
 
 	@Override
-	public void eliminar(ValorPropiedad af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(ValorPropiedad af) { dao.delete(af); }
 	@Override
-	public ValorPropiedad guardar(ValorPropiedad af) {
-		return dao.save(af);
-	}
-
+	public ValorPropiedad guardar(ValorPropiedad af) { return dao.save(af); }
 	@Override
-	public List<ValorPropiedad> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<ValorPropiedad> listarTodos() { return dao.findAll(); }
 	@Override
-	public ValorPropiedad buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public ValorPropiedad buscarPorId(Long id) { return dao.findOne(id); }
 
 }

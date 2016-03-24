@@ -24,10 +24,13 @@ public class CatPropiedad extends AbstractEntity{
 	private String description;
 	
 	@Column(name="forCategory")
-	private String forCategory;
+	private Boolean forCategory;
 	
 	@Column(name="forProduct")
-	private String forProduct;
+	private Boolean forProduct;
+	
+	@Column(name="system")
+	private Boolean system;
 
 	public String getName() {
 		return name;
@@ -45,35 +48,42 @@ public class CatPropiedad extends AbstractEntity{
 		this.description = description;
 	}
 
-	public String getForCategory() {
-		return forCategory;
-	}
-
-	public void setForCategory(String forCategory) {
-		this.forCategory = forCategory;
-	}
-
-	public String getForProduct() {
-		return forProduct;
-	}
-
-	public void setForProduct(String forProduct) {
-		this.forProduct = forProduct;
-	}
-
 	@Override
 	public String toString() {
 		return "CatPropiedad [id=" + id + ", name=" + name + ", description=" + description + ", forCategory="
-				+ forCategory + ", forProduct=" + forProduct + "]";
+				+ forCategory + ", forProduct=" + forProduct + ", system=" + system + "]";
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
+
+	public Boolean getForCategory() {
+		return forCategory;
+	}
+
+	public void setForCategory(Boolean forCategory) {
+		this.forCategory = forCategory;
+	}
+
+	public Boolean getForProduct() {
+		return forProduct;
+	}
+
+	public void setForProduct(Boolean forProduct) {
+		this.forProduct = forProduct;
+	}
+
+	public Boolean getSystem() {
+		return system;
+	}
+
+	public void setSystem(Boolean system) {
+		this.system = system;
+	}
+
 }

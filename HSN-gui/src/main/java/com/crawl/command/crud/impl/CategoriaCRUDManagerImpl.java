@@ -18,23 +18,12 @@ public class CategoriaCRUDManagerImpl implements ICategoriaCRUDManager {
 	private ICategoriaDao dao;
 
 	@Override
-	public void eliminar(Categoria af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(Categoria af) { dao.delete(af); }
 	@Override
-	public Categoria guardar(Categoria af) {
-		return dao.save(af);
-	}
-
+	public Categoria guardar(Categoria af) { return dao.save(af); }
 	@Override
-	public List<Categoria> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<Categoria> listarTodos() { return dao.findAll(); }
 	@Override
-	public Categoria buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public Categoria buscarPorId(Long id) { return dao.findOne(id); }
 
 }

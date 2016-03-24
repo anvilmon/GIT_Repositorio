@@ -42,14 +42,6 @@ public class ValorPropiedad extends AbstractEntity {
 	@JoinColumn(name="fk_producto")
 	private Producto producto;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public String getValue() {
 		return value;
 	}
@@ -86,5 +78,13 @@ public class ValorPropiedad extends AbstractEntity {
 	public String toString() {
 		return "ValorPropiedad [id=" + id + ", value=" + value + ", propiedad=" + propiedad + ", asociacionFotos="
 				+ asociacionFotos + ", producto=" + producto + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

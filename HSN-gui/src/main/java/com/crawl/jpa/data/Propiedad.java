@@ -29,16 +29,8 @@ public class Propiedad extends AbstractEntity{
 	@JoinColumn(name="fk_cat_propiedad")
 	private CatPropiedad tipoPropiedad;
 	
-	@Column(name="valor")
-	private String value;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@Column(name="selector")
+	private String selector;
 
 	public Repositorio getRepositorio() {
 		return repositorio;
@@ -48,27 +40,30 @@ public class Propiedad extends AbstractEntity{
 		this.repositorio = repositorio;
 	}
 
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	@Override
-	public String toString() {
-		return "Propiedad [id=" + id + ", repositorio=" + repositorio + ", tipoPropiedad=" + tipoPropiedad + ", value="
-				+ value + "]";
-	}
-
 	public CatPropiedad getTipoPropiedad() {
 		return tipoPropiedad;
 	}
 
 	public void setTipoPropiedad(CatPropiedad tipoPropiedad) {
 		this.tipoPropiedad = tipoPropiedad;
+	}
+
+	public String getSelector() {
+		return selector;
+	}
+
+	public void setSelector(String selector) {
+		this.selector = selector;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Propiedad [id=" + id + ", repositorio=" + repositorio + ", tipoPropiedad=" + tipoPropiedad
+				+ ", selector=" + selector + "]";
 	}
 
 }

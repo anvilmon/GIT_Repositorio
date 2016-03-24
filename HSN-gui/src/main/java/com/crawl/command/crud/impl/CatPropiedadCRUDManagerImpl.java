@@ -18,23 +18,12 @@ public class CatPropiedadCRUDManagerImpl implements ICatPropiedadCRUDManager {
 	private ICatPropiedadDao dao;
 
 	@Override
-	public void eliminar(CatPropiedad af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(CatPropiedad af) { dao.delete(af); }
 	@Override
-	public CatPropiedad guardar(CatPropiedad af) {
-		return dao.save(af);
-	}
-
+	public CatPropiedad guardar(CatPropiedad af) { return dao.save(af); }
 	@Override
-	public List<CatPropiedad> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<CatPropiedad> listarTodos() { return dao.findAll(); }
 	@Override
-	public CatPropiedad buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public CatPropiedad buscarPorId(Long id) { return dao.findOne(id); }
 
 }

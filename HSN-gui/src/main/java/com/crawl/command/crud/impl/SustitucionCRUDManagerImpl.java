@@ -18,23 +18,12 @@ public class SustitucionCRUDManagerImpl implements ISustitucionCRUDManager {
 	private ISustitucionDao dao;
 
 	@Override
-	public void eliminar(Sustitucion af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(Sustitucion af) { dao.delete(af); }
 	@Override
-	public Sustitucion guardar(Sustitucion af) {
-		return dao.save(af);
-	}
-
+	public Sustitucion guardar(Sustitucion af) { return dao.save(af); }
 	@Override
-	public List<Sustitucion> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<Sustitucion> listarTodos() { return dao.findAll(); }
 	@Override
-	public Sustitucion buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public Sustitucion buscarPorId(Long id) { return dao.findOne(id); }
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+>
+    <h:head>
+        <title>HSN - Dashboard</title>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="west" size="235" header="Menu" resizable="false" closable="false" collapsible="true">
+                <h:form>
+					<p:menu orientation="horizontal" >
+						<p:submenu label="Gestión">
+							<p:menuitem value="De Repositorios" url="repositoriesManagement.xhtml"/>
+							<p:menuitem value="De Propiedades"  url="propertiesManagement.xhtml"/>
+						</p:submenu>
+						<p:submenu label="Tablas Maestras">
+							<p:menuitem value="Catálogo de propiedades" url="catPropiedades.xhtml"/>
+						</p:submenu>	
+					</p:menu>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="center">
+            	<p:growl id="messages"/>
+                <ui:insert name="content">Put default content here, if any.</ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

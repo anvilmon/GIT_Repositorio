@@ -18,23 +18,12 @@ public class AsociacionFotoCRUDManagerImpl implements IAsociacionFotoCRUDManager
 	private IAsociacionFotosDao dao;
 
 	@Override
-	public void eliminar(AsociacionFotos af) {
-		dao.delete(af);
-	}
-
+	public void eliminar(AsociacionFotos af) { dao.delete(af); }
 	@Override
-	public AsociacionFotos guardar(AsociacionFotos af) {
-		return dao.save(af);
-	}
-
+	public AsociacionFotos guardar(AsociacionFotos af) { return dao.save(af); }
 	@Override
-	public List<AsociacionFotos> listarTodos() {
-		return dao.findAll();
-	}
-
+	public List<AsociacionFotos> listarTodos() { return dao.findAll(); }
 	@Override
-	public AsociacionFotos buscarPorId(Long id) {
-		return dao.findOne(id);
-	}
+	public AsociacionFotos buscarPorId(Long id) { return dao.findOne(id); }
 
 }

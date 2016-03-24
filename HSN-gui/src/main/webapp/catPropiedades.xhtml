@@ -1,0 +1,94 @@
+<ui:composition 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:ui="http://java.sun.com/jsf/facelets"
+					xmlns:h="http://java.sun.com/jsf/html"
+					xmlns:f="http://java.sun.com/jsf/core"
+					xmlns:p="http://primefaces.org/ui" 
+					template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="content">
+		<p:dataTable	id="dtCatalogoPropiedades" 
+						value="#{catalogoPropiedadesBean.list}" 
+						var="catprop" 
+						rows="10"
+                        paginator="#{catalogoPropiedadesBean.list.size() gt 10}"
+                        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+	   		<p:column headerText="Nombre" width="150px;">
+	   			<p:outputLabel value="#{catprop.name}"/>
+	   		</p:column>
+	   		<p:column headerText="Descripción" width="200px;">
+	   			<p:outputLabel value="#{catprop.description}"/>
+			</p:column>
+			<p:column headerText="Para Categoria" width="100px;">
+				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.forCategory}"/>
+				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.forCategory}"/>
+			</p:column>
+			<p:column headerText="Para Producto" width="100px;" >
+				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.forProduct}"/>
+				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.forProduct}"/>
+			</p:column>
+			<p:column headerText="De sistema" width="70px;">
+				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.system}"/>
+				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.system}"/>
+			</p:column>
+			<p:column headerText="Acciones" width="100px;">
+				<p:commandLink >
+					<p:ajax listener="#{catalogoPropiedadesBean.edit(catprop)}" partialSubmit="true" immediate="true" update="@parent :dlgEditCatPropiedadId"/>
+					<p:graphicImage	value="../images/edit.png" 	 title="Editar"		width="25" 	height="25"/>
+				</p:commandLink>
+				<p:commandLink rendered="#{!catprop.system}" >
+					<p:ajax listener="#{catalogoPropiedadesBean.delete(catprop)}" partialSubmit="true" immediate="true" update="@parent :dtCatalogoPropiedades"/>
+					<p:graphicImage	value="../images/remove.png" 	 title="Borrar"		width="25" 	height="25"/>
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+		<br/>
+		<p:commandLink style="float:right">
+			<p:ajax listener="#{catalogoPropiedadesBean.create()}" partialSubmit="true" immediate="true" update=":dlgEditCatPropiedadId"/>
+			<p:graphicImage	value="../images/create.png" 	 title="Nueva"		width="70" 	height="70"/>
+		</p:commandLink>
+		
+		<p:dialog 	id="dlgEditCatPropiedadId" 
+					widgetVar="dlgEditCatPropiedad" 
+					height="270" 
+					resizable="false"
+					closable="false" closeOnEscape="true"
+					draggable="false"
+					width="500">
+					<h:form>
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Nombre:" />
+							<p:inputText	value="#{catalogoPropiedadesBean.element.name}"
+											required="true"
+											validatorMessage="El nombre no puede ser nulo"/>
+											
+							<p:outputLabel value="Descripción: "/>
+							<p:inputText 	value="#{catalogoPropiedadesBean.element.description}"
+											required="true"
+											validatorMessage="La descripción no puede ser nula"/>	
+											
+							<p:outputLabel value="¿Es para categorias?"/>
+							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.forCategory}" >
+								<p:ajax partialSubmit="true" immediate="true"/>
+							</p:selectBooleanCheckbox>
+							
+							<p:outputLabel value="¿Es para productos?"/>
+							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.forProduct}" >
+								<p:ajax partialSubmit="true" immediate="true"/>
+							</p:selectBooleanCheckbox>
+							
+							<p:outputLabel value="¿Es de sistema?" />
+							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.system}"  >
+								<p:ajax partialSubmit="true" immediate="true"/>
+							</p:selectBooleanCheckbox>
+							
+						</p:panelGrid>
+						<br/>
+						<p:commandButton action="#{catalogoPropiedadesBean.save}" value="Aceptar" update="@parent :dtCatalogoPropiedades" >
+							<p:resetInput target="@form"/>
+						</p:commandButton>	
+						<p:commandButton immediate="true" action="#{catalogoPropiedadesBean.cancel}" value="Cancelar" update="@parent :dtCatalogoPropiedades" >
+							<p:resetInput target="@form"/>
+						</p:commandButton>	
+					</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
