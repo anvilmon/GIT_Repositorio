@@ -11,31 +11,31 @@
 						rows="10"
                         paginator="#{catalogoPropiedadesBean.list.size() gt 10}"
                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-	   		<p:column headerText="Nombre" width="150px;">
+	   		<p:column headerText="Nombre">
 	   			<p:outputLabel value="#{catprop.name}"/>
 	   		</p:column>
-	   		<p:column headerText="Descripción" width="200px;">
+	   		<p:column headerText="Descripción">
 	   			<p:outputLabel value="#{catprop.description}"/>
 			</p:column>
-			<p:column headerText="Para Categoria" width="100px;">
+			<p:column headerText="Para Categoria">
 				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.forCategory}"/>
 				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.forCategory}"/>
 			</p:column>
-			<p:column headerText="Para Producto" width="100px;" >
+			<p:column headerText="Para Producto" >
 				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.forProduct}"/>
 				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.forProduct}"/>
 			</p:column>
-			<p:column headerText="De sistema" width="70px;">
+			<p:column headerText="De sistema">
 				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.system}"/>
 				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.system}"/>
 			</p:column>
-			<p:column headerText="Acciones" width="100px;">
+			<p:column headerText="Acciones">
 				<p:commandLink >
 					<p:ajax listener="#{catalogoPropiedadesBean.edit(catprop)}" partialSubmit="true" immediate="true" update="@parent :dlgEditCatPropiedadId"/>
 					<p:graphicImage	value="../images/edit.png" 	 title="Editar"		width="25" 	height="25"/>
 				</p:commandLink>
 				<p:commandLink rendered="#{!catprop.system}" >
-					<p:ajax listener="#{catalogoPropiedadesBean.delete(catprop)}" partialSubmit="true" immediate="true" update="@parent :dtCatalogoPropiedades"/>
+					<p:ajax listener="#{catalogoPropiedadesBean.delete(catprop)}" partialSubmit="true" immediate="true" update="@parent :dtCatalogoPropiedades :messages"/>
 					<p:graphicImage	value="../images/remove.png" 	 title="Borrar"		width="25" 	height="25"/>
 				</p:commandLink>
 			</p:column>
@@ -82,10 +82,10 @@
 							
 						</p:panelGrid>
 						<br/>
-						<p:commandButton action="#{catalogoPropiedadesBean.save}" value="Aceptar" update="@parent :dtCatalogoPropiedades" >
+						<p:commandButton action="#{catalogoPropiedadesBean.save}" value="Aceptar" update="@parent :dtCatalogoPropiedades :messages" >
 							<p:resetInput target="@form"/>
 						</p:commandButton>	
-						<p:commandButton immediate="true" action="#{catalogoPropiedadesBean.cancel}" value="Cancelar" update="@parent :dtCatalogoPropiedades" >
+						<p:commandButton immediate="true" action="#{catalogoPropiedadesBean.cancel}" value="Cancelar" update="@parent :dtCatalogoPropiedades :messages" >
 							<p:resetInput target="@form"/>
 						</p:commandButton>	
 					</h:form>

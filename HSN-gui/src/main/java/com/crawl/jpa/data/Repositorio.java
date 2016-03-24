@@ -53,13 +53,6 @@ public class Repositorio extends AbstractEntity {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
 	private List<Producto> productos = new ArrayList<Producto>();
 	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getUrl() {
 		return url;
@@ -147,6 +140,14 @@ public class Repositorio extends AbstractEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

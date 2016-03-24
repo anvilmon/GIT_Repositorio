@@ -5,7 +5,12 @@
 					xmlns:p="http://primefaces.org/ui" 
 					template="/WEB-INF/templates/layout.xhtml">
 	<ui:define name="content">
-		<p:dataTable id="dtRepositorios" value="#{repositorioBean.lstRepositorios}" var="rep">
+		<p:dataTable 	id="dtRepositorios" 
+						value="#{repositorioBean.list}"
+						rows="10"
+                        paginator="#{repositorioBean.list.size() gt 10}"
+                        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+						var="rep">
 	   		<p:column headerText="Nombre" width="150px;">
 	   			<p:outputLabel value="#{rep.name}"/>
 	   		</p:column>
@@ -23,13 +28,96 @@
 				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!rep.active}"/>
 			</p:column>
 			<p:column headerText="Acciones">
-				<p:commandLink rendered="#{rep.active == false}" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios">
+				<p:commandLink >
+					<p:ajax listener="#{repositorioBean.edit(rep)}" partialSubmit="true" immediate="true" update="@parent :dlgEditRepositorioId"/>
+					<p:graphicImage	value="../images/edit.png" 	 title="Editar"		width="25" 	height="25"/>
+				</p:commandLink>
+				<p:commandLink >
+					<p:ajax listener="#{repositorioBean.configure(rep)}" partialSubmit="true" immediate="true" update="@parent :dlgConfigRepositorioId"/>
+					<p:graphicImage	value="../images/configure.png" 	 title="Configurar"		width="25" 	height="25"/>
+				</p:commandLink>
+				<p:commandLink rendered="#{rep.active == false}" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios :messages">
 					<p:graphicImage	value="../images/activar.png" 		title="Activar" width="25" height="25" />
 				</p:commandLink>
-				<p:commandLink rendered="#{rep.active == true }" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios">
+				<p:commandLink rendered="#{rep.active == true }" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios :messages">
 					<p:graphicImage	value="../images/desactivar.png" 	title="Desactivar" width="25" height="25" />
+				</p:commandLink>
+				<p:commandLink >
+					<p:ajax listener="#{repositorioBean.scan(rep)}" partialSubmit="true" immediate="true"/>
+					<p:graphicImage	value="../images/scan.png" 	 title="Editar"		width="25" 	height="25"/>
 				</p:commandLink>
 			</p:column>
 		</p:dataTable>
+		<br/>
+		<p:commandLink style="float:right">
+			<p:ajax listener="#{repositorioBean.scanAll()}" partialSubmit="true" immediate="true"/>
+			<p:graphicImage	value="../images/scan.png" 	 title="Scan"		width="70" 	height="70"/>
+		</p:commandLink>
+		<p:commandLink style="float:right">
+			<p:ajax listener="#{repositorioBean.create()}" partialSubmit="true" immediate="true" update=":dlgEditRepositorioId"/>
+			<p:graphicImage	value="../images/create.png" 	 title="Nueva"		width="70" 	height="70"/>
+		</p:commandLink>
+		<p:dialog 	id="dlgEditRepositorioId" 
+					widgetVar="dlgEditRepositorio"  
+					height="250" 
+					resizable="false"
+					closable="false" 
+					closeOnEscape="true"
+					draggable="false"
+					width="1000">
+			<h:form>		
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nombre:"/>
+					<p:inputText value="#{repositorioBean.element.name}"/>
+				
+					<p:outputLabel value="Scan URL:"/>
+					<p:inputText value="#{repositorioBean.element.url}" style="width:800px"/>
+				
+					<p:outputLabel value="URL de imagen:"/>
+					<p:inputText value="#{repositorioBean.element.image}" style="width:800px "/>
+				
+					<p:outputLabel value="Sitio web:"/>
+					<p:inputText value="#{repositorioBean.element.root}" style="width:800px"/>
+				
+					<p:outputLabel value="Activo:"/>
+					<p:selectBooleanCheckbox value="#{repositorioBean.element.active}"  >
+						<p:ajax partialSubmit="true" immediate="true"/>
+					</p:selectBooleanCheckbox>
+				
+				</h:panelGrid>		
+				<br/>
+				<p:commandButton action="#{repositorioBean.save}" value="Aceptar" update="@parent :dtRepositorios :messages" >
+					<p:resetInput target="@form"/>
+				</p:commandButton>
+				<p:commandButton immediate="true" action="#{repositorioBean.cancel}" value="Cancelar" update="@parent :dtRepositorios :messages" >
+					<p:resetInput target="@form"/>
+				</p:commandButton>	
+			</h:form>	
+		</p:dialog>		
+		<p:dialog 	id="dlgConfigRepositorioId" 
+					widgetVar="dlgConfigRepositorio"  
+					height="450" 
+					resizable="false"
+					closable="false" 
+					closeOnEscape="true"
+					draggable="false"
+					width="450">
+			<h:form>	
+				<ui:repeat var="prop" value="#{repositorioBean.element.propiedades}">
+					<h:panelGrid columns="3" cellpadding="5">
+						<p:outputLabel value=" "/>
+						<p:outputLabel value="#{prop.tipoPropiedad.name}: " style="width:300px !important"/>
+						<p:inputText value="#{prop.selector}" />
+					</h:panelGrid>
+				</ui:repeat>	
+				<br/>
+				<p:commandButton action="#{repositorioBean.save}" value="Aceptar" update="@parent :dtRepositorios :messages" >
+					<p:resetInput target="@form"/>
+				</p:commandButton>
+				<p:commandButton immediate="true" action="#{repositorioBean.cancel}" value="Cancelar" update="@parent :dtRepositorios :messages" >
+					<p:resetInput target="@form"/>
+				</p:commandButton>	
+			</h:form>	
+		</p:dialog>		
 	</ui:define>
 </ui:composition>
