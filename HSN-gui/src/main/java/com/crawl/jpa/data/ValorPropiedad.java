@@ -1,27 +1,19 @@
 package com.crawl.jpa.data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="VALOR_PROPIEDAD")
-public class ValorPropiedad extends AbstractEntity {
+@Table(name="DAT_VALOR_PROPIEDAD")
+public class ValorPropiedad implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,9 +26,6 @@ public class ValorPropiedad extends AbstractEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="fk_propiedad")
 	private Propiedad propiedad;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="valorPropiedad", fetch=FetchType.LAZY, orphanRemoval=true)
-	private List<AsociacionFotos> asociacionFotos = new ArrayList<AsociacionFotos>();
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="fk_producto")
@@ -66,18 +55,10 @@ public class ValorPropiedad extends AbstractEntity {
 		this.producto = producto;
 	}
 
-	public List<AsociacionFotos> getAsociacionFotos() {
-		return asociacionFotos;
-	}
-
-	public void setAsociacionFotos(List<AsociacionFotos> asociacionFotos) {
-		this.asociacionFotos = asociacionFotos;
-	}
-
 	@Override
 	public String toString() {
-		return "ValorPropiedad [id=" + id + ", value=" + value + ", propiedad=" + propiedad + ", asociacionFotos="
-				+ asociacionFotos + ", producto=" + producto + "]";
+		return "ValorPropiedad [id=" + id + ", value=" + value + ", propiedad=" + propiedad + ", producto=" + producto
+				+ "]";
 	}
 
 	public Long getId() {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.IRepositorioCRUDManager;
-import com.crawl.jpa.dao.IRepositorioDao;
+import com.crawl.jpa.dao.RepositorioDao;
 import com.crawl.jpa.data.Repositorio;
 
 @Component("repositorioCRUD")
@@ -15,7 +15,7 @@ import com.crawl.jpa.data.Repositorio;
 public class RepositorioCRUDManagerImpl implements IRepositorioCRUDManager {
 	
 	@Autowired
-	private IRepositorioDao dao;
+	private RepositorioDao dao;
 
 	@Override
 	public void eliminar(Repositorio af) { dao.delete(af); }
@@ -25,5 +25,7 @@ public class RepositorioCRUDManagerImpl implements IRepositorioCRUDManager {
 	public List<Repositorio> listarTodos() { return dao.findAll(); }
 	@Override
 	public Repositorio buscarPorId(Long id) { return dao.findOne(id); }
+	@Override
+	public List<Repositorio> listarRepositoriosActivos() { return dao.listarRepositoriosActivos(); }
 
 }

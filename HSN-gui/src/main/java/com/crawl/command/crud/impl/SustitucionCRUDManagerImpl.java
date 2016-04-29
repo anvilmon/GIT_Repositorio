@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.ISustitucionCRUDManager;
-import com.crawl.jpa.dao.ISustitucionDao;
+import com.crawl.jpa.dao.SustitucionDao;
+import com.crawl.jpa.data.Repositorio;
 import com.crawl.jpa.data.Sustitucion;
 
 @Component("sustitucionCRUD")
@@ -15,7 +16,7 @@ import com.crawl.jpa.data.Sustitucion;
 public class SustitucionCRUDManagerImpl implements ISustitucionCRUDManager {
 	
 	@Autowired
-	private ISustitucionDao dao;
+	private SustitucionDao dao;
 
 	@Override
 	public void eliminar(Sustitucion af) { dao.delete(af); }
@@ -25,5 +26,7 @@ public class SustitucionCRUDManagerImpl implements ISustitucionCRUDManager {
 	public List<Sustitucion> listarTodos() { return dao.findAll(); }
 	@Override
 	public Sustitucion buscarPorId(Long id) { return dao.findOne(id); }
+	@Override
+	public List<Sustitucion> listarParaRepositorio(Repositorio r) { return dao.listarParaRepositorio(r); }
 
 }

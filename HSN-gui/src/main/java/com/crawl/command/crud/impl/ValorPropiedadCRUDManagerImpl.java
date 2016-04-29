@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.IValorPropiedadCRUDManager;
-import com.crawl.jpa.dao.IValorPropiedadDao;
+import com.crawl.jpa.dao.ValorPropiedadDao;
 import com.crawl.jpa.data.ValorPropiedad;
 
 @Component("valpropCRUD")
@@ -15,7 +15,7 @@ import com.crawl.jpa.data.ValorPropiedad;
 public class ValorPropiedadCRUDManagerImpl implements IValorPropiedadCRUDManager {
 	
 	@Autowired
-	private IValorPropiedadDao dao;
+	private ValorPropiedadDao dao;
 
 	@Override
 	public void eliminar(ValorPropiedad af) { dao.delete(af); }

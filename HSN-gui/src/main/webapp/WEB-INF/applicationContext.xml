@@ -18,11 +18,9 @@
 							http://www.springframework.org/schema/context 
 							http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- Enable Spring Annotation Configuration -->
-	<data:repositories base-package="com.crawl.jpa.dao" />
+	<data:repositories base-package="com.crawl.jpa.dao" repository-impl-postfix="Impl"/>
 
-		<!-- Para poder utilizar las anotaciones -->
-<!--     <tx:jta-transaction-manager  />	 -->
-<!-- 	<tx:annotation-driven/>  -->
+	<!-- Para poder utilizar las anotaciones -->
 	<context:annotation-config/>
 	<context:component-scan base-package="com.crawl"/>
 
@@ -38,6 +36,24 @@
 		<property name="showSql" value="true" />
 	</bean>
 	
+	
+	<bean id="contentManager"
+            class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+            <property name="favorPathExtension" value="true"/>
+            <property name="ignoreAcceptHeader" value="true" />
+            <property name="defaultContentType" value="text/html" />
+            <property name="useJaf" value="false"/>
+            <property name="mediaTypes">
+                <map>
+                    <entry key="html" value="text/html" />
+                    <entry key="json" value="application/json" />
+                    <entry key="xml" value="application/xml" />
+                </map>
+            </property>
+           </bean>
+        <bean id="jspViewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        </bean>
 	<!-- Define Hibernate JPA Vendor Adapter -->
 	<!-- <bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

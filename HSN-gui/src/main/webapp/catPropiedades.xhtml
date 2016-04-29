@@ -8,8 +8,8 @@
 		<p:dataTable	id="dtCatalogoPropiedades" 
 						value="#{catalogoPropiedadesBean.list}" 
 						var="catprop" 
-						rows="10"
-                        paginator="#{catalogoPropiedadesBean.list.size() gt 10}"
+						rows="13"
+                        paginator="#{catalogoPropiedadesBean.list.size() gt 13}"
                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 	   		<p:column headerText="Nombre">
 	   			<p:outputLabel value="#{catprop.name}"/>
@@ -17,17 +17,9 @@
 	   		<p:column headerText="Descripción">
 	   			<p:outputLabel value="#{catprop.description}"/>
 			</p:column>
-			<p:column headerText="Para Categoria">
-				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.forCategory}"/>
-				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.forCategory}"/>
-			</p:column>
-			<p:column headerText="Para Producto" >
-				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.forProduct}"/>
-				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.forProduct}"/>
-			</p:column>
-			<p:column headerText="De sistema">
-				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.system}"/>
-				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.system}"/>
+			<p:column headerText="Objeto raíz">
+				<p:graphicImage	value="../images/active.png" title="Activo"		width="25" 	height="25" rendered="#{catprop.root}"/>
+				<p:graphicImage	value="../images/locked.png" title="Inactivo" 	width="25" 	height="25" rendered="#{!catprop.root}"/>
 			</p:column>
 			<p:column headerText="Acciones">
 				<p:commandLink >
@@ -64,19 +56,8 @@
 							<p:inputText 	value="#{catalogoPropiedadesBean.element.description}"
 											required="true"
 											validatorMessage="La descripción no puede ser nula"/>	
-											
-							<p:outputLabel value="¿Es para categorias?"/>
-							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.forCategory}" >
-								<p:ajax partialSubmit="true" immediate="true"/>
-							</p:selectBooleanCheckbox>
-							
-							<p:outputLabel value="¿Es para productos?"/>
-							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.forProduct}" >
-								<p:ajax partialSubmit="true" immediate="true"/>
-							</p:selectBooleanCheckbox>
-							
-							<p:outputLabel value="¿Es de sistema?" />
-							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.system}"  >
+							<p:outputLabel value="¿Es propiedad raíz?" />
+							<p:selectBooleanCheckbox value="#{catalogoPropiedadesBean.element.root}"  >
 								<p:ajax partialSubmit="true" immediate="true"/>
 							</p:selectBooleanCheckbox>
 							

@@ -1,5 +1,6 @@
 package com.crawl.beans.impl;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,10 @@ import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.crawl.command.crud.ICatPropiedadCRUDManager;
+import com.crawl.command.business.IScannerManager;
 import com.crawl.command.crud.IRepositorioCRUDManager;
-import com.crawl.jpa.data.CatPropiedad;
-import com.crawl.jpa.data.Propiedad;
 import com.crawl.jpa.data.Repositorio;
+import com.crawl.jpa.data.Sustitucion;
 
 @ManagedBean(name="repositorioBean")
 @ViewScoped
@@ -33,13 +33,14 @@ public class RepositorioBean implements Serializable{
 	@Autowired
 	private IRepositorioCRUDManager repositorioCRUDManager;
 	@Autowired
-	private ICatPropiedadCRUDManager catPropiedadCRUDManager;
+	private IScannerManager scanner;
+	
 	@PostConstruct
 	public void init(){
 		reload();
 	}
 	
-	public void reload (){ list = repositorioCRUDManager.listarTodos(); element = null; }	
+	public void reload (){ list = repositorioCRUDManager.listarTodos(); element = null;}	
 	
 	public void save() {
 		repositorioCRUDManager.guardar(element);
@@ -56,37 +57,7 @@ public class RepositorioBean implements Serializable{
 		context.execute("PF('dlgEditRepositorio').show();");
 	}
 	
-	public void configure (Repositorio pRepositorio){
-		element = pRepositorio;
-		final List<CatPropiedad> cps = catPropiedadCRUDManager.listarTodos();
-		if (element.getPropiedades() == null || element.getPropiedades().isEmpty()) {
-			element.setPropiedades(new ArrayList<Propiedad>());
-			Propiedad p = null;
-			for (CatPropiedad cp : cps){
-				p = new Propiedad();
-				p.setRepositorio(element);
-				p.setTipoPropiedad(cp);
-				p.setSelector("");
-				element.getPropiedades().add(p);
-			}
-		}else if (element.getPropiedades().size() < cps.size()){
-			for (CatPropiedad cp : cps){
-				boolean flag = false;
-				for (Propiedad p : element.getPropiedades()){
-					if (p.getTipoPropiedad().getId() == cp.getId()){
-						flag = true ;
-						break;
-					}
-				}
-				if (!flag){
-					Propiedad p = new Propiedad();
-					p.setRepositorio(element);
-					p.setTipoPropiedad(cp);
-					p.setSelector("");
-					element.getPropiedades().add(p);
-				}
-			}
-		}
+	public void configure (){
 		RequestContext context = RequestContext.getCurrentInstance();
 		context.execute("PF('dlgConfigRepositorio').show();");
 	}
@@ -114,13 +85,39 @@ public class RepositorioBean implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Repositorio desactivado correctamente."));
 		}
 	}
-
-	public void scanAll() throws Exception{
-		
+	
+	public void replacement(Repositorio pRepositorio){
+		element = pRepositorio;
+		if (element.getSustituciones() == null){
+			element.setSustituciones(new ArrayList<Sustitucion>());
+		}
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('dlgSustitucionesRepositorio').show();");
 	}
 	
-	public void scan (Repositorio pRepositorio){
-		
+	public void closeReplacement (){
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('dlgSustitucionesRepositorio').hide();");
+		reload();
+	}
+	
+
+	public void scanAll(){
+		try {
+			scanner.escanearTodosRepositorios();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Repositorios escaneados correctamente."));
+		} catch (IOException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fallo al escanear los repositorios."));
+		} 
+	}
+	
+	public void scan (Repositorio pRepositorio){ 
+		try {
+			scanner.escanearRepositorio(pRepositorio, null);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Repositorio "+pRepositorio.getName()+" escaneado correctamente."));
+		} catch (IOException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Fallo al escanear el repositorio "+pRepositorio.getName()+"."));
+		} 
 	}
 
 	/* GETTERS Y SETTERS */
@@ -128,4 +125,5 @@ public class RepositorioBean implements Serializable{
 	public void setList(List<Repositorio> list) { this.list = list; }
 	public Repositorio getElement() { return element; }
 	public void setElement(Repositorio element) { this.element = element; }
+
 }

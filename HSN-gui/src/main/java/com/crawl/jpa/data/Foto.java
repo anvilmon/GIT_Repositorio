@@ -1,24 +1,18 @@
 package com.crawl.jpa.data;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="FOTO")
-public class Foto  extends AbstractEntity {
+@Table(name="DAT_FOTO")
+public class Foto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,17 +27,6 @@ public class Foto  extends AbstractEntity {
 	@Column(name="terminado")
 	private boolean terminado;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="foto", fetch=FetchType.LAZY)
-	private List<AsociacionFotos> asociacionFotos = new ArrayList<AsociacionFotos>();
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public Date getDtFoto() {
 		return dtFoto;
 	}
@@ -60,18 +43,17 @@ public class Foto  extends AbstractEntity {
 		this.terminado = terminado;
 	}
 
-	public List<AsociacionFotos> getAsociacionFotos() {
-		return asociacionFotos;
+	public Long getId() {
+		return id;
 	}
 
-	public void setAsociacionFotos(List<AsociacionFotos> asociacionFotos) {
-		this.asociacionFotos = asociacionFotos;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "Foto [id=" + id + ", dtFoto=" + dtFoto + ", terminado=" + terminado + ", asociacionFotos="
-				+ asociacionFotos + "]";
+		return "Foto [id=" + id + ", dtFoto=" + dtFoto + ", terminado=" + terminado + "]";
 	}
 
 }

@@ -1,0 +1,31 @@
+<ui:composition 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:ui="http://java.sun.com/jsf/facelets"
+					xmlns:h="http://java.sun.com/jsf/html"
+					xmlns:f="http://java.sun.com/jsf/core"
+					xmlns:p="http://primefaces.org/ui">
+	<p:dialog 	id="dlgConfigRepositorioId" 
+				widgetVar="dlgConfigRepositorio"  
+				height="450" 
+				resizable="false"
+				closable="false" 
+				closeOnEscape="true"
+				draggable="false"
+				width="450">
+		<h:form>	
+			<ui:repeat var="prop" value="#{repositorioBean.element.propiedades}">
+				<h:panelGrid columns="3" cellpadding="5">
+					<p:outputLabel value=" "/>
+					<p:outputLabel value="#{prop.tipoPropiedad.name}: " style="width:300px !important"/>
+					<p:inputText value="#{prop.selector}" />
+				</h:panelGrid>
+			</ui:repeat>	
+			<br/>
+			<p:commandButton action="#{repositorioBean.save}" value="Aceptar" update="@parent :dtRepositorios :messages" >
+				<p:resetInput target="@form"/>
+			</p:commandButton>
+			<p:commandButton immediate="true" action="#{repositorioBean.cancel}" value="Cancelar" update="@parent :dtRepositorios :messages" >
+				<p:resetInput target="@form"/>
+			</p:commandButton>	
+		</h:form>	
+	</p:dialog>		
+</ui:composition>

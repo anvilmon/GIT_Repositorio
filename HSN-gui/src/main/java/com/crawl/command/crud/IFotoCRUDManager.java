@@ -13,5 +13,7 @@ public interface IFotoCRUDManager {
 	public List<Foto> listarTodos ();
 	
 	public Foto buscarPorId (Long id);
+	
+	public Foto generateNewFoto ();
 
 }

@@ -1,8 +1,8 @@
 package com.crawl.jpa.data;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,13 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="CATEGORIA")
-public class Categoria  extends AbstractEntity{
+@Table(name="DAT_CATEGORIA")
+public class Categoria implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,19 +40,17 @@ public class Categoria  extends AbstractEntity{
 	@JoinColumn(name="fk_category")
 	private Categoria parentCategory;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="categoria", fetch=FetchType.LAZY)
-	private List<Producto> productos;
+	@OneToMany( mappedBy="categoria", fetch=FetchType.LAZY)
+	private List<ProductoCategoria> productoCategoria;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="categoria", fetch=FetchType.LAZY)
+	@OneToMany( mappedBy="categoria", fetch=FetchType.LAZY)
 	private List<AsociacionFotos> asociacionFotos;
+	
+	@OneToMany(mappedBy="parentCategory", fetch=FetchType.LAZY)
+	private List<Categoria> childCategorias;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	@OneToOne(mappedBy="categoria", fetch=FetchType.LAZY)
+	private ConfigCategoria configCategoria;
 
 	public Repositorio getRepositorio() {
 		return repositorio;
@@ -90,8 +87,9 @@ public class Categoria  extends AbstractEntity{
 	@Override
 	public String toString() {
 		return "Categoria [id=" + id + ", repositorio=" + repositorio + ", name=" + name + ", url=" + url + ", image="
-				+ image + ", parentCategory=" + parentCategory + ", productos=" + productos + ", asociacionFotos="
-				+ asociacionFotos + "]";
+				+ image + ", parentCategory=" + parentCategory + ", productoCategoria=" + productoCategoria
+				+ ", asociacionFotos=" + asociacionFotos + ", childCategorias=" + childCategorias + ", configCategoria="
+				+ configCategoria + "]";
 	}
 
 	public Categoria getParentCategory() {
@@ -102,19 +100,43 @@ public class Categoria  extends AbstractEntity{
 		this.parentCategory = parentCategory;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
-
 	public List<AsociacionFotos> getAsociacionFotos() {
 		return asociacionFotos;
 	}
 
 	public void setAsociacionFotos(List<AsociacionFotos> asociacionFotos) {
 		this.asociacionFotos = asociacionFotos;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<ProductoCategoria> getProductoCategoria() {
+		return productoCategoria;
+	}
+
+	public void setProductoCategoria(List<ProductoCategoria> productoCategoria) {
+		this.productoCategoria = productoCategoria;
+	}
+
+	public ConfigCategoria getConfigCategoria() {
+		return configCategoria;
+	}
+
+	public void setConfigCategoria(ConfigCategoria configCategoria) {
+		this.configCategoria = configCategoria;
+	}
+
+	public List<Categoria> getChildCategorias() {
+		return childCategorias;
+	}
+
+	public void setChildCategorias(List<Categoria> childCategorias) {
+		this.childCategorias = childCategorias;
 	}
 }

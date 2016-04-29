@@ -1,25 +1,23 @@
 package com.crawl.jpa.data;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="ASOCIACION_FOTOS")
-public class AsociacionFotos extends AbstractEntity{
+@Table(name="DAT_ASOCIACION_FOTOS")
+public class AsociacionFotos implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="id")
-	@GeneratedValue
 	private Long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -42,13 +40,6 @@ public class AsociacionFotos extends AbstractEntity{
 	@JoinColumn(name="fk_valor_propiedad", nullable = true)
 	private ValorPropiedad valorPropiedad;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public Repositorio getRepositorio() {
 		return repositorio;
@@ -94,6 +85,14 @@ public class AsociacionFotos extends AbstractEntity{
 	public String toString() {
 		return "AsociacionFotos [id=" + id + ", repositorio=" + repositorio + ", foto=" + foto + ", categoria="
 				+ categoria + ", producto=" + producto + ", valorPropiedad=" + valorPropiedad + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

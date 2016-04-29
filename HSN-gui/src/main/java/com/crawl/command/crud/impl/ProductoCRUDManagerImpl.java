@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.crawl.command.crud.IProductoCRUDManager;
-import com.crawl.jpa.dao.IProductoDao;
+import com.crawl.jpa.dao.ProductoDao;
 import com.crawl.jpa.data.Producto;
 
 @Component("productoCRUD")
@@ -15,7 +15,7 @@ import com.crawl.jpa.data.Producto;
 public class ProductoCRUDManagerImpl implements IProductoCRUDManager {
 	
 	@Autowired
-	private IProductoDao dao;
+	private ProductoDao dao;
 
 	@Override
 	public void eliminar(Producto af) { dao.delete(af); }

@@ -1,0 +1,155 @@
+<html>
+  <head>  
+    <title>Repositorio Management</title>  
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+     <link href="/static/css/styles.css" rel="stylesheet"></link>
+  </head>
+  <body ng-app="myApp" class="ng-cloak">
+      <div class="generic-container" ng-controller="RepositorioController as ctrl">
+          <div class="panel panel-default">
+              <div class="panel-heading"><span class="lead">Repositorio Registration Form </span></div>
+              <div class="formcontainer">
+                  <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+                      <input type="hidden" ng-model="ctrl.repositorio.id" />
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="rurl">Repositorio URL</label>
+                              <div class="col-md-7">
+                                  <input 	type="text" 
+                                  			ng-model="ctrl.repositorio.url" 
+                                  			id="rurl" 
+                                  			class="repositorio form-control input-sm" 
+                                  			placeholder="Enter repositorio URL" 
+                                  			required ng-minlength="3"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.rurl.$error.required">This is a required field</span>
+                                      <span ng-show="myForm.rurl.$error.minlength">Minimum length required is 3</span>
+                                      <span ng-show="myForm.rurl.$invalid">This field is invalid </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="rurl">Repositorio image URL</label>
+                              <div class="col-md-7">
+                                  <input 	type="text" 
+                                  			ng-model="ctrl.repositorio.image" 
+                                  			id="rimage" 
+                                  			class="repositorio form-control input-sm" 
+                                  			placeholder="Enter repositorio image URL" 
+                                  			required ng-minlength="3"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.rimage.$error.required">This is a required field</span>
+                                      <span ng-show="myForm.rimage.$error.minlength">Minimum length required is 3</span>
+                                      <span ng-show="myForm.rimage.$invalid">This field is invalid </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>   
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="rurl">Repositorio root URL</label>
+                              <div class="col-md-7">
+                                  <input 	type="text" 
+                                  			ng-model="ctrl.repositorio.root" 
+                                  			id="rroot" 
+                                  			class="repositorio form-control input-sm" 
+                                  			placeholder="Enter repositorio root URL" 
+                                  			required ng-minlength="3"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.rroot.$error.required">This is a required field</span>
+                                      <span ng-show="myForm.rroot.$error.minlength">Minimum length required is 3</span>
+                                      <span ng-show="myForm.rroot.$invalid">This field is invalid </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="rurl">Repositorio name</label>
+                              <div class="col-md-7">
+                                  <input 	type="text" 
+                                  			ng-model="ctrl.repositorio.name" 
+                                  			id="rname" 
+                                  			class="repositorio form-control input-sm" 
+                                  			placeholder="Enter repositorio name URL" 
+                                  			required ng-minlength="3"/>
+                                  <div class="has-error" ng-show="myForm.$dirty">
+                                      <span ng-show="myForm.rname.$error.required">This is a required field</span>
+                                      <span ng-show="myForm.rname.$error.minlength">Minimum length required is 3</span>
+                                      <span ng-show="myForm.rname.$invalid">This field is invalid </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="rurl">Repositorio is active?</label>
+                              <div class="col-md-7">
+                                  <input 	type="checkbox" 
+                                  			ng-model="ctrl.repositorio.active" 
+                                  			id="ractive" 
+                                  			class="repositorio form-control input-sm" 
+                                  			/>
+                              </div>
+                          </div>
+                      </div> 
+                      <div class="row">
+                          <div class="form-actions floatRight">
+                              <input 	type="submit"  
+                              			class="btn btn-primary btn-sm" 
+                              			ng-disabled="myForm.$invalid"></input>
+                              <button 	type="button" 
+                              			ng-click="ctrl.reset()" 
+                              			class="btn btn-warning btn-sm" 
+                              			ng-disabled="myForm.$pristine">Clear</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="panel panel-default">
+                <!-- Default panel contents -->
+              <div class="panel-heading"><span class="lead">List of Repositorio </span></div>
+              <div class="tablecontainer">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>ID.</th>
+                              <th>Name</th>
+                              <th>URL</th>
+                              <th>Root URL</th>
+                              <th>Image</th>
+                              <th>Active</th>
+                              <th width="20%">Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="r in ctrl.repositorios">
+                              <td><span ng-bind="r.id"></span></td>
+                              <td><span ng-bind="r.url"></span></td>
+                              <td><span ng-bind="r.root"></span></td>
+                              <td><image ng-bind="r.image"></image></td>
+                              <td><span ng-bind="r.active"></span></td>
+                              <td>
+	                              <button 	type="button" 
+	                              			ng-click="ctrl.edit(r.id)" 
+	                              			class="btn btn-success custom-width">Edit</button>  
+	                              <button 	type="button" 
+	                              			ng-click="ctrl.remove(r.id)" 
+	                              			class="btn btn-danger custom-width">Remove</button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+       
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+      <script src="/static/js/app.js"></script>
+      <script src="/static/js/service/repositorio_service.js"></script>
+      <script src="/static/js/controller/repositorio_controller.js"></script>
+  </body>
+</html>

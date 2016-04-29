@@ -33,7 +33,8 @@
 					<p:graphicImage	value="../images/edit.png" 	 title="Editar"		width="25" 	height="25"/>
 				</p:commandLink>
 				<p:commandLink >
-					<p:ajax listener="#{repositorioBean.configure(rep)}" partialSubmit="true" immediate="true" update="@parent :dlgConfigRepositorioId"/>
+					<p:ajax listener="#{configRepositorioBean.setRepositorio(rep)}" partialSubmit="true" immediate="true" update=":dlgConfigRepositorioId"/>
+					<p:ajax listener="#{repositorioBean.configure()}" partialSubmit="true" immediate="true" update="@parent :dlgConfigRepositorioId"/>
 					<p:graphicImage	value="../images/configure.png" 	 title="Configurar"		width="25" 	height="25"/>
 				</p:commandLink>
 				<p:commandLink rendered="#{rep.active == false}" action="#{repositorioBean.changeStatus(rep)}" update="dtRepositorios :messages">
@@ -44,8 +45,13 @@
 				</p:commandLink>
 				<p:commandLink >
 					<p:ajax listener="#{repositorioBean.scan(rep)}" partialSubmit="true" immediate="true"/>
-					<p:graphicImage	value="../images/scan.png" 	 title="Editar"		width="25" 	height="25"/>
+					<p:graphicImage	value="../images/scan.png" 	 title="Escanear"		width="25" 	height="25"/>
 				</p:commandLink>
+				<p:commandLink >
+					<p:ajax listener="#{sustitucionBean.setRepositorio(rep)}" partialSubmit="true" immediate="true" update=":dlgSustitucionesRepositorioId"/>
+					<p:ajax listener="#{repositorioBean.replacement(rep)}" partialSubmit="true" immediate="true" update=":dlgSustitucionesRepositorioId"/>
+					<p:graphicImage	value="../images/replace.png" 	 title="Sustituciones"		width="25" 	height="25"/>
+				</p:commandLink> 
 			</p:column>
 		</p:dataTable>
 		<br/>
@@ -94,6 +100,70 @@
 				</p:commandButton>	
 			</h:form>	
 		</p:dialog>		
+		
+		<p:dialog 	id="dlgSustitucionesRepositorioId" 
+					widgetVar="dlgSustitucionesRepositorio"  
+					height="450" 
+					resizable="false"
+					closable="false" 
+					closeOnEscape="true"
+					draggable="false"
+					width="550">
+			<h:form>	
+				<p:dataTable	value="#{sustitucionBean.list}" 
+								rows="10"
+								id="dtSustituciones"
+		                        paginator="#{sustitucionBean.list.size() gt 10}"
+		                        paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+								var="sus">
+					<p:column headerText="Original" width="150px;">
+			   			<p:outputLabel value="#{sus.from}"/>
+			   		</p:column>
+			   		<p:column headerText="Sustituido" width="150px;">
+			   			<p:outputLabel value="#{sus.to}" />
+					</p:column>
+					<p:column headerText="Acciones" width="100px;">
+						<p:commandLink >
+							<p:ajax listener="#{sustitucionBean.edit(sus)}" partialSubmit="true" immediate="true" update=":dlgSustitucionesRepositorioId dtSustituciones :dlgNuevaSustitucionId :messages"/>
+							<p:graphicImage	value="../images/edit.png" 	 title="Editar"		width="25" 	height="25"/>
+						</p:commandLink>
+						<p:commandLink rendered="#{!catprop.system}" >
+							<p:ajax listener="#{sustitucionBean.delete(sus)}" partialSubmit="true" immediate="true" update=":dlgSustitucionesRepositorioId dtSustituciones :dlgNuevaSustitucionId :messages"/>
+							<p:graphicImage	value="../images/remove.png" 	 title="Borrar"		width="25" 	height="25"/>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>	
+				<br/>
+				<p:commandLink style="float:right">
+					<p:ajax listener="#{sustitucionBean.create()}" partialSubmit="true" immediate="true" update=":dlgSustitucionesRepositorioId dtSustituciones :dlgNuevaSustitucionId"/>
+					<p:graphicImage	value="../images/create.png" 	 title="Nueva"		width="70" 	height="70"/>
+				</p:commandLink>
+				
+			</h:form>	
+		</p:dialog>	
+		<p:dialog 	id="dlgNuevaSustitucionId" 
+					widgetVar="dlgNuevaSustitucion"  
+					height="500" 
+					resizable="false"
+					closable="false" 
+					closeOnEscape="true"
+					draggable="false"
+					width="5	00">
+			<h:form>	
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Valor original:"/>
+					<p:inputText value="#{sustitucionBean.element.from}"/>
+					<p:outputLabel value="Nuevo valor:"/>
+					<p:inputText value="#{sustitucionBean.element.to}"/>
+				</p:panelGrid>
+				<p:commandButton action="#{sustitucionBean.save}" value="Aceptar" update="@parent :dlgSustitucionesRepositorioId :messages" >
+					<p:resetInput target="@form"/>
+				</p:commandButton>
+				<p:commandButton immediate="true" action="#{sustitucionBean.cancel}" value="Cancelar" update="@parent :dlgSustitucionesRepositorioId :messages" >
+					<p:resetInput target="@form"/>
+				</p:commandButton>	
+			</h:form>	
+		</p:dialog>	
 		<p:dialog 	id="dlgConfigRepositorioId" 
 					widgetVar="dlgConfigRepositorio"  
 					height="450" 
@@ -103,18 +173,29 @@
 					draggable="false"
 					width="450">
 			<h:form>	
-				<ui:repeat var="prop" value="#{repositorioBean.element.propiedades}">
-					<h:panelGrid columns="3" cellpadding="5">
-						<p:outputLabel value=" "/>
-						<p:outputLabel value="#{prop.tipoPropiedad.name}: " style="width:300px !important"/>
-						<p:inputText value="#{prop.selector}" />
-					</h:panelGrid>
-				</ui:repeat>	
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Selector de categoría:"/>
+					<p:inputText value="#{configRepositorioBean.element.selectorCategoria}"/>
+					
+					<p:outputLabel value="Atributo de URL de categoría:"/>
+					<p:inputText value="#{configRepositorioBean.element.atributoUrl}"/>
+					
+					<p:outputLabel value="Atributo de nombre de categoría:"/>
+					<p:inputText value="#{configRepositorioBean.element.atributoNombre}"/>
+					
+					<p:outputLabel value="Selector de imagen de categoría:"/>
+					<p:inputText value="#{configRepositorioBean.element.selectorImagen}"/>
+					
+					<p:outputLabel value="Atributo de imagen de categoría:"/>
+					<p:inputText value="#{configRepositorioBean.element.atributoImagen}"/>
+				</p:panelGrid>
 				<br/>
-				<p:commandButton action="#{repositorioBean.save}" value="Aceptar" update="@parent :dtRepositorios :messages" >
+				<p:commandButton action="#{configRepositorioBean.save}" value="Aceptar" update="@parent  :messages :dlgConfigRepositorioId" >
+					<p:ajax listener="#{repositorioBean.reload()}" immediate="true" update=":dtRepositorios"/>
 					<p:resetInput target="@form"/>
 				</p:commandButton>
-				<p:commandButton immediate="true" action="#{repositorioBean.cancel}" value="Cancelar" update="@parent :dtRepositorios :messages" >
+				<p:commandButton immediate="true" action="#{configRepositorioBean.cancel}" value="Cancelar" update="@parent :messages :dlgConfigRepositorioId" >
+					<p:ajax listener="#{repositorioBean.reload()}" immediate="true" update=":dtRepositorios"/>
 					<p:resetInput target="@form"/>
 				</p:commandButton>	
 			</h:form>	

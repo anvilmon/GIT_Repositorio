@@ -1,0 +1,28 @@
+<ui:composition 	xmlns="http://www.w3.org/1999/xhtml"
+					xmlns:ui="http://java.sun.com/jsf/facelets"
+					xmlns:h="http://java.sun.com/jsf/html"
+					xmlns:f="http://java.sun.com/jsf/core"
+					xmlns:p="http://primefaces.org/ui" 
+					template="/WEB-INF/templates/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+<!-- 		    <p:tree value="#{categoriaBean.root}" var="node" selectionMode="single" selection="#{categoriaBean.selectedNode}"> -->
+<!-- 		        <p:ajax event="expand" update=":messages" listener="#{categoriaBean.onNodeExpand}" /> -->
+<!-- 		        <p:ajax event="collapse" update=":messages" listener="#{categoriaBean.onNodeCollapse}" /> -->
+<!-- 		        <p:ajax event="select" update=":messages" listener="#{categoriaBean.onNodeSelect}" />  -->
+<!-- 		        <p:ajax event="unselect" update=":messages" listener="#{categoriaBean.onNodeUnSelect}" /> -->
+<!-- 		        <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed"> -->
+<!-- 		            <h:outputText value="#{node.nodeName}"/> -->
+<!-- 		        </p:treeNode> -->
+<!-- 		        <p:treeNode type="foto" icon="ui-icon-document"> -->
+<!-- 		            <h:outputText value="#{node.nodeName}" /> -->
+<!-- 		        </p:treeNode> -->
+<!-- 		    </p:tree> -->
+
+			 <div ng-controller="categoriesManagement">
+             	<p>Message is:{{$scope.Data.msg}} </p>
+             	<label id="lblTextRest"/>
+             </div>
+		</h:form> 
+	</ui:define>
+</ui:composition>

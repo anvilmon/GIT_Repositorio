@@ -1,5 +1,7 @@
 package com.crawl.jpa.data;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="PROPIEDAD")
-public class Propiedad extends AbstractEntity{
+@Table(name="DAT_PROPIEDAD")
+public class Propiedad implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

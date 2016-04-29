@@ -1,21 +1,20 @@
 package com.crawl.jpa.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="REPOSITORIO")
-public class Repositorio extends AbstractEntity {
+@Table(name="DAT_REPOSITORIO")
+public class Repositorio implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,22 +37,24 @@ public class Repositorio extends AbstractEntity {
 	@Column(name="name")
 	private String name;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany(mappedBy="repositorio", fetch=FetchType.LAZY)
 	private List<Categoria> categorias = new ArrayList<Categoria>();
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany( mappedBy="repositorio", fetch=FetchType.LAZY)
 	private List<AsociacionFotos> asociacionFotos = new ArrayList<AsociacionFotos>();
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany( mappedBy="repositorio", fetch=FetchType.LAZY)
 	private List<Propiedad> propiedades = new ArrayList<Propiedad>();
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany( mappedBy="repositorio", fetch=FetchType.LAZY)
 	private List<Sustitucion> sustituciones = new ArrayList<Sustitucion>();
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="repositorio", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany( mappedBy="repositorio", fetch=FetchType.LAZY)
 	private List<Producto> productos = new ArrayList<Producto>();
 	
-
+	@OneToOne(mappedBy="repositorio", fetch=FetchType.LAZY)
+	private ConfigRepositorio configRepositorio;
+	
 	public String getUrl() {
 		return url;
 	}
@@ -83,7 +84,7 @@ public class Repositorio extends AbstractEntity {
 		return "Repositorio [id=" + id + ", url=" + url + ", image=" + image + ", active=" + active + ", root=" + root
 				+ ", name=" + name + ", categorias=" + categorias + ", asociacionFotos=" + asociacionFotos
 				+ ", propiedades=" + propiedades + ", sustituciones=" + sustituciones + ", productos=" + productos
-				+ "]";
+				+ ", configRepositorio=" + configRepositorio + "]";
 	}
 
 	public List<Categoria> getCategorias() {
@@ -148,6 +149,14 @@ public class Repositorio extends AbstractEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public ConfigRepositorio getConfigRepositorio() {
+		return configRepositorio;
+	}
+
+	public void setConfigRepositorio(ConfigRepositorio configRepositorio) {
+		this.configRepositorio = configRepositorio;
 	}
 
 	

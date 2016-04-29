@@ -14,4 +14,5 @@ public interface IRepositorioCRUDManager {
 	
 	public Repositorio buscarPorId (Long id);
 
+	public List<Repositorio> listarRepositoriosActivos ();
 }

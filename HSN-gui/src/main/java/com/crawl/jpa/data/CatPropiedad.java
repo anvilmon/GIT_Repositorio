@@ -1,15 +1,15 @@
 package com.crawl.jpa.data;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
 @Table(name="CAT_PROPIEDAD")
-public class CatPropiedad extends AbstractEntity{
+public class CatPropiedad implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,15 +23,9 @@ public class CatPropiedad extends AbstractEntity{
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="forCategory")
-	private Boolean forCategory;
+	@Column(name="root")
+	private Boolean root;
 	
-	@Column(name="forProduct")
-	private Boolean forProduct;
-	
-	@Column(name="system")
-	private Boolean system;
-
 	public String getName() {
 		return name;
 	}
@@ -50,8 +44,7 @@ public class CatPropiedad extends AbstractEntity{
 
 	@Override
 	public String toString() {
-		return "CatPropiedad [id=" + id + ", name=" + name + ", description=" + description + ", forCategory="
-				+ forCategory + ", forProduct=" + forProduct + ", system=" + system + "]";
+		return "CatPropiedad [id=" + id + ", name=" + name + ", description=" + description + ", root=" + root + "]";
 	}
 
 	public Long getId() {
@@ -62,28 +55,12 @@ public class CatPropiedad extends AbstractEntity{
 		this.id = id;
 	}
 
-	public Boolean getForCategory() {
-		return forCategory;
+	public Boolean getRoot() {
+		return root;
 	}
 
-	public void setForCategory(Boolean forCategory) {
-		this.forCategory = forCategory;
-	}
-
-	public Boolean getForProduct() {
-		return forProduct;
-	}
-
-	public void setForProduct(Boolean forProduct) {
-		this.forProduct = forProduct;
-	}
-
-	public Boolean getSystem() {
-		return system;
-	}
-
-	public void setSystem(Boolean system) {
-		this.system = system;
+	public void setRoot(Boolean root) {
+		this.root = root;
 	}
 
 }

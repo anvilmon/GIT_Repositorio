@@ -1,9 +1,9 @@
 package com.crawl.jpa.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,11 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.crawl.jpa.AbstractEntity;
-
 @Entity
-@Table(name="PRODUCTO")
-public class Producto extends AbstractEntity {
+@Table(name="DAT_PRODUCTO")
+public class Producto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,14 +27,13 @@ public class Producto extends AbstractEntity {
 	@JoinColumn(name="fk_repositorio")
 	private Repositorio repositorio;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="fk_categoria")
-	private Categoria categoria;
+	@OneToMany( mappedBy="producto", fetch=FetchType.LAZY)
+	private List<ProductoCategoria> productoCategoria;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="producto", fetch=FetchType.LAZY, orphanRemoval=true)
+	@OneToMany( mappedBy="producto", fetch=FetchType.LAZY)
 	private List<AsociacionFotos> asociacionFotos = new ArrayList<AsociacionFotos>();
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="producto", fetch=FetchType.LAZY)
+	@OneToMany( mappedBy="producto", fetch=FetchType.LAZY)
 	private List<ValorPropiedad> valores = new ArrayList<ValorPropiedad>();
 	
 	@Column(name="name")
@@ -56,9 +53,9 @@ public class Producto extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", repositorio=" + repositorio + ", categoria=" + categoria + ", asociacionFotos="
-				+ asociacionFotos + ", valores=" + valores + ", name=" + name + ", url=" + url + ", image=" + image
-				+ ", description=" + description + ", active=" + active + "]";
+		return "Producto [id=" + id + ", repositorio=" + repositorio + ", productoCategoria=" + productoCategoria
+				+ ", asociacionFotos=" + asociacionFotos + ", valores=" + valores + ", name=" + name + ", url=" + url
+				+ ", image=" + image + ", description=" + description + ", active=" + active + "]";
 	}
 
 	public long getId() {
@@ -75,14 +72,6 @@ public class Producto extends AbstractEntity {
 
 	public void setRepositorio(Repositorio repositorio) {
 		this.repositorio = repositorio;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 
 	public List<ValorPropiedad> getValores() {
